@@ -9,8 +9,12 @@ export default function Places (props) {
   //   const [placeList, setPlaceList] = useState([])
   const [empty, setEmpty] = useState(true)
   const [load, setLoad] = useState(true)
+//   const [hasInfo, setHasInfo] = useState(false)
   const setPlaceList = props.setPlaceList
   const search = props.search.search
+//   const info = props.info
+//   const placeId = props.placeId
+//   const setInfo = props.setInfo
 
   useEffect(
     () => {
@@ -18,17 +22,14 @@ export default function Places (props) {
         const b = s.includes(',')
         if (b === true) {
           const a = s.split(', ')
-          console.log(a)
           axios
             .get(`http://localhost:5000/places/${a[1]}/${a[0]}`)
             .then(res => {
               setEmpty(false)
               setPlaceList(res.data)
-              console.log(res.data)
               setLoad(false)
             })
             .catch(() => {
-              console.log('aaa')
               setEmpty(true)
               setLoad(false)
             })
@@ -53,7 +54,7 @@ export default function Places (props) {
                 : props.placeList.map(place => {
                   return (
                     <PlaceCard
-                      key={place.id}
+                      key={place.place_id}
                       place_id={place.place_id}
                       placeList={props.placeList}
                       view={props.view}
@@ -63,8 +64,9 @@ export default function Places (props) {
                       name={place.name}
                       vicinity={place.vicinity}
                       image={place.image}
-                      info={props.info}
-                      setInfo={props.setInfo}
+                    //   info={props.info}
+                    //   setInfo={setInfo}
+                    //   setLoad={setLoad}
                       />
                   )
                 })}

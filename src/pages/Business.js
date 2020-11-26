@@ -57,8 +57,8 @@ export default function Places (props) {
                   vicinity={props.placeList.vicinity}
                   image={props.placeList.image}
                   info={props.info}
-                  setInfo={props.setInfo}
-                  placeId={props.placeList.place_id}
+                //   setInfo={props.setInfo}
+                  place_id={props.placeList.place_id}
                   />}
               )
             </VStack>

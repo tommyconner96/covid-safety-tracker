@@ -11,7 +11,7 @@ function App () {
   const [search, setSearch] = useState({ search: '' })
   const [view, setView] = useState('')
   const [placeList, setPlaceList] = useState([])
-  const [info, setInfo] = useState([])
+  // const [info, setInfo] = useState([])
 
   useEffect(() => {
     console.log(search, 'useEffect App.js')
@@ -39,8 +39,8 @@ function App () {
                   setSearch={setSearch}
                   view={view}
                   placeList={placeList}
-                  info={info}
-                  setInfo={setInfo}
+                  // info={info}
+                  // setInfo={setInfo}
                   {...props}
                 />}
             />
@@ -62,8 +62,8 @@ function App () {
                   setSearch={setSearch}
                   view={view}
                   setView={setView}
-                  info={info}
-                  setInfo={setInfo}
+                  // info={info}
+                  // setInfo={setInfo}
                   {...props}
                 />}
             />

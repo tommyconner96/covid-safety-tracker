@@ -22,9 +22,10 @@ export default function PlaceCard (props) {
   const [hasInfo, setHasInfo] = useState(false)
   const [load, setLoad] = useState(true)
   const history = useHistory()
-  const placeId = props.placeId
-  const setInfo = props.setInfo
-  const info = props.info
+  const placeId = props.place_id
+//   const setInfo = props.setInfo
+//   const info = props.info
+const [info, setInfo] = useState([])
   useEffect(
     () => {
       axios
@@ -46,10 +47,12 @@ export default function PlaceCard (props) {
             outdoor: null
           })
         })
+        console.log(info)
       setLoad(false)
     },
-    [setInfo, placeId, setLoad]
+    [setInfo, placeId]
   )
+  console.log(info)
   return (
     <React.Fragment>
       {/* {props.listList.map(place => { */}
