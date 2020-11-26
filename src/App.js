@@ -1,8 +1,76 @@
-function App() {
+import { useState, useEffect } from 'react'
+import { Box, Text, Button, VStack, Code, Grid } from '@chakra-ui/react'
+import { Switch, Route, Link, useHistory } from 'react-router-dom'
+import Header from './components/Header'
+import Home from './pages/Home'
+import About from './pages/About'
+import Places from './pages/Places'
+import Business from './pages/Business'
+
+function App () {
+  const [search, setSearch] = useState({ search: '' })
+  const [view, setView] = useState('')
+  const [placeList, setPlaceList] = useState([])
+  const [info, setInfo] = useState([])
+
+  useEffect(() => {
+    console.log(search, 'useEffect App.js')
+  }, [search])
+
   return (
-    <div className="App">
-      Helo Wrld
-    </div>
+    <Box bg='dodgerblue' textAlign='center' fontSize='xl'>
+      <Header />
+      <Grid
+        minH='100vh'
+        p={3}
+        direction='column'
+        align='center'
+        justify='center'
+      >
+        <VStack spacing={9}>
+          <Switch>
+            <Route
+              exact
+              path='/places/:id'
+              render={props =>
+                <Business
+                  setPlaceList={setPlaceList}
+                  search={search}
+                  setSearch={setSearch}
+                  view={view}
+                  placeList={placeList}
+                  info={info}
+                  setInfo={setInfo}
+                  {...props}
+                />}
+            />
+            <Route
+              exact
+              path='/'
+              render={props =>
+                <Home search={search} setSearch={setSearch} {...props} />}
+            />
+            <Route exact path='/about' render={props => <About {...props} />} />
+            <Route
+              exact
+              path='/search'
+              render={props =>
+                <Places
+                  placeList={placeList}
+                  setPlaceList={setPlaceList}
+                  search={search}
+                  setSearch={setSearch}
+                  view={view}
+                  setView={setView}
+                  info={info}
+                  setInfo={setInfo}
+                  {...props}
+                />}
+            />
+          </Switch>
+        </VStack>
+      </Grid>
+    </Box>
   )
 }
 
