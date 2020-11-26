@@ -41,10 +41,6 @@ export default function Places (props) {
         : <Box p={6} marginTop={20} w='100%' boxShadow='md' bg='tomato'>
           <VStack spacing={6}>
             {empty
-                // ? <Box>
-                //   <Text>Invalid Place ID.</Text>
-                //   <Button onClick={() => history.push("/")}>Go Back</Button>
-                // </Box>
                 ? <Error />
                 : <PlaceCard
                   key={props.placeList.id}

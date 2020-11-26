@@ -9,12 +9,12 @@ export default function Places (props) {
   //   const [placeList, setPlaceList] = useState([])
   const [empty, setEmpty] = useState(true)
   const [load, setLoad] = useState(true)
-//   const [hasInfo, setHasInfo] = useState(false)
+  //   const [hasInfo, setHasInfo] = useState(false)
   const setPlaceList = props.setPlaceList
   const search = props.search.search
-//   const info = props.info
-//   const placeId = props.placeId
-//   const setInfo = props.setInfo
+  //   const info = props.info
+  //   const placeId = props.placeId
+  //   const setInfo = props.setInfo
 
   useEffect(
     () => {
@@ -64,9 +64,6 @@ export default function Places (props) {
                       name={place.name}
                       vicinity={place.vicinity}
                       image={place.image}
-                    //   info={props.info}
-                    //   setInfo={setInfo}
-                    //   setLoad={setLoad}
                       />
                   )
                 })}

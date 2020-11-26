@@ -1,21 +1,25 @@
 import { useState, useEffect } from 'react'
-import { Box, Text, Button, VStack, Code, Grid } from '@chakra-ui/react'
-import { Switch, Route, Link, useHistory } from 'react-router-dom'
+import { Box, VStack, Grid } from '@chakra-ui/react'
+import { Switch, Route } from 'react-router-dom'
 import Header from './components/Header'
 import Home from './pages/Home'
 import About from './pages/About'
 import Places from './pages/Places'
 import Business from './pages/Business'
+import UpdatePlace from './pages/UpdatePlace'
 
-function App () {
+export default function App () {
   const [search, setSearch] = useState({ search: '' })
   const [view, setView] = useState('')
   const [placeList, setPlaceList] = useState([])
   // const [info, setInfo] = useState([])
 
-  useEffect(() => {
-    console.log(search, 'useEffect App.js')
-  }, [search])
+  useEffect(
+    () => {
+      console.log(search, 'useEffect App.js')
+    },
+    [search]
+  )
 
   return (
     <Box bg='dodgerblue' textAlign='center' fontSize='xl'>
@@ -35,8 +39,23 @@ function App () {
               render={props =>
                 <Business
                   setPlaceList={setPlaceList}
-                  search={search}
-                  setSearch={setSearch}
+                  // search={search}
+                  // setSearch={setSearch}
+                  view={view}
+                  placeList={placeList}
+                  // info={info}
+                  // setInfo={setInfo}
+                  {...props}
+                />}
+            />
+            <Route
+              exact
+              path='/update/:id'
+              render={props =>
+                <UpdatePlace
+                  setPlaceList={setPlaceList}
+                  // search={search}
+                  // setSearch={setSearch}
                   view={view}
                   placeList={placeList}
                   // info={info}
@@ -73,5 +92,3 @@ function App () {
     </Box>
   )
 }
-
-export default App
