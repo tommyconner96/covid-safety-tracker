@@ -42,13 +42,13 @@ export default function UpdatePlace (props) {
           setLoad(false)
         })
     },
-    [load, props.view, placeId, setPlaceList]
+    [load, placeId, setPlaceList]
   )
 
   return (
     <React.Fragment>
       <React.Fragment>
-        <Box p={6} marginTop={20} w='100%' boxShadow='md' bg='tomato'>
+        {/* <Box p={6} marginTop={20} w='100%' boxShadow='md' bg='tomato'> */}
         <VStack spacing={6}>
           {load
             ? <Spinner />
@@ -80,11 +80,11 @@ export default function UpdatePlace (props) {
               </Center>
               <Flex
                 flexDirection='row-reverse'
-                w='30em'
+                w='45vw'
                 key={props.key}
                 p={6}
                 >
-                <Box w='40%' m='0 auto'>
+                <Box w='30vw' m='0 auto'>
                   <Image
                     fallbackSrc='https://via.placeholder.com/500'
                     boxSize='3xs'
@@ -92,7 +92,7 @@ export default function UpdatePlace (props) {
                     alt={props.name}
                     />
                 </Box>
-                <Flex w='60%' direction='column'>
+                <Flex w='60vw' direction='column'>
                   <Box w='100%' m='0 auto'>
                     <Text fontSize='lg'>dfgdfgdfgdfg</Text>
                     <Divider h='10px' />
@@ -108,7 +108,7 @@ export default function UpdatePlace (props) {
               </Flex>
             </Flex>}
             </VStack>
-        </Box>
+        {/* </Box> */}
       </React.Fragment>
     </React.Fragment>
   )

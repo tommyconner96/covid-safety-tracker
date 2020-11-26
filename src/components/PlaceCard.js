@@ -60,6 +60,7 @@ export default function PlaceCard (props) {
           ? <Spinner />
           : <Flex
             h='100%'
+            // width="auto"
             bg='white'
             borderRadius='md'
             boxShadow='md'
@@ -84,8 +85,8 @@ export default function PlaceCard (props) {
                   </Button>
               </Stack>
             </Center>
-            <Flex flexDirection='row-reverse' w='30em' key={props.key} p={6}>
-              <Box w='40%' m='0 auto'>
+            <Flex flexDirection='row-reverse' w='45vw' key={props.key} p={6}>
+              <Box width="30vw" m='0 auto'>
                 <Image
                   fallbackSrc='https://via.placeholder.com/500'
                   boxSize='3xs'
@@ -93,7 +94,7 @@ export default function PlaceCard (props) {
                   alt={props.name}
                   />
               </Box>
-              <Flex w='60%' direction='column'>
+              <Flex width="60vw" direction='column'>
                 <Box w='100%' m='0 auto'>
                   <Text fontSize='lg'>
                     {props.name}

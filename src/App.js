@@ -10,7 +10,7 @@ import UpdatePlace from './pages/UpdatePlace'
 
 export default function App () {
   const [search, setSearch] = useState({ search: '' })
-  const [view, setView] = useState('')
+  const [view, setView] = useState()
   const [placeList, setPlaceList] = useState([])
   // const [info, setInfo] = useState([])
 
@@ -25,13 +25,14 @@ export default function App () {
     <Box bg='dodgerblue' textAlign='center' fontSize='xl'>
       <Header />
       <Grid
-        minH='100vh'
+        minH='88vh'
         p={3}
         direction='column'
         align='center'
         justify='center'
       >
-        <VStack spacing={9}>
+        {/* <VStack spacing={2}> */}
+        <Box p={6} w='100%' boxShadow='md' bg='tomato'>
           <Switch>
             <Route
               exact
@@ -56,7 +57,7 @@ export default function App () {
                   setPlaceList={setPlaceList}
                   // search={search}
                   // setSearch={setSearch}
-                  view={view}
+                  // view={view}
                   placeList={placeList}
                   // info={info}
                   // setInfo={setInfo}
@@ -87,7 +88,8 @@ export default function App () {
                 />}
             />
           </Switch>
-        </VStack>
+          </Box>
+        {/* </VStack> */}
       </Grid>
     </Box>
   )

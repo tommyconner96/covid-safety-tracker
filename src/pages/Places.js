@@ -47,28 +47,26 @@ export default function Places (props) {
     <React.Fragment>
       {load
         ? <Spinner />
-        : <Box p={6} marginTop={20} w='100%' boxShadow='md' bg='tomato'>
-          <VStack spacing={6}>
-            {empty
-                ? <Error />
-                : props.placeList.map(place => {
-                  return (
-                    <PlaceCard
-                      key={place.place_id}
-                      place_id={place.place_id}
-                      placeList={props.placeList}
-                      view={props.view}
-                      city={place.city}
-                      state={place.state}
-                      type={place.type}
-                      name={place.name}
-                      vicinity={place.vicinity}
-                      image={place.image}
-                      />
-                  )
-                })}
-          </VStack>
-        </Box>}
+        : <VStack spacing={6}>
+          {empty
+              ? <Error />
+              : props.placeList.map(place => {
+                return (
+                  <PlaceCard
+                    key={place.place_id}
+                    place_id={place.place_id}
+                    placeList={props.placeList}
+                    view={props.view}
+                    city={place.city}
+                    state={place.state}
+                    type={place.type}
+                    name={place.name}
+                    vicinity={place.vicinity}
+                    image={place.image}
+                    />
+                )
+              })}
+        </VStack>}
     </React.Fragment>
   )
 }

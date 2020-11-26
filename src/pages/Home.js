@@ -1,18 +1,20 @@
 import React from 'react'
-import { Input, Text, Button, VStack, Code, Grid, Box } from '@chakra-ui/react'
+import { Text, VStack, Flex } from '@chakra-ui/react'
 import Search from '../components/Search'
 
 function Home (props) {
   return (
     <React.Fragment>
-      <Box p={6} marginTop={20} borderRadius='md' boxShadow='md' bg='tomato'>
-        <VStack spacing={6}>
-          <Text p={6} fontSize='2xl'>
-            Look up local businesses by entering a city or zip code:
-          </Text>
+      {/* <Box p={6} marginTop={20} borderRadius='md' boxShadow='md' bg='tomato'> */}
+      <Flex direction='column'>
+        <Text p={6} fontSize='2xl'>
+          Look up local businesses by entering a city or zip code:
+        </Text>
+        <Flex direction='column' padding='5px'>
           <Search search={props.search} setSearch={props.setSearch} />
-        </VStack>
-      </Box>
+        </Flex>
+      </Flex>
+      {/* </Box> */}
     </React.Fragment>
   )
 }
