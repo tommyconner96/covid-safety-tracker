@@ -1,3 +1,4 @@
+import React from 'react'
 import { Input, Button } from "@chakra-ui/react"
 import { useState, useEffect } from "react"
 import { useHistory } from 'react-router-dom'
@@ -25,11 +26,11 @@ export default function Search(props) {
     }
 // FOR DEVELOPMENT ENTER City, STATE ABV.
     return(
-    <>
+    <React.Fragment>
         <Input onChange={handleChange} name="search" value={props.search.search} bg="white" placeholder="Enter a city, or zip code" size="lg" />
         <Button onClick={handleSubmit} bg="teal.500" border="1px">
             Find Places
         </Button>
-    </>
+    </React.Fragment>
     )
 }

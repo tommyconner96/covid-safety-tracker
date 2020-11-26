@@ -4,6 +4,7 @@ import { useHistory } from 'react-router-dom'
 import { Text, VStack, Box, Button, Spinner } from '@chakra-ui/react'
 import axios from 'axios'
 import PlaceCard from '../components/PlaceCard'
+import Error from '../components/Error'
 
 export default function Places (props) {
   const [load, setLoad] = useState(true)
@@ -40,10 +41,11 @@ export default function Places (props) {
         : <Box p={6} marginTop={20} w='100%' boxShadow='md' bg='tomato'>
           <VStack spacing={6}>
             {empty
-                ? <Box>
-                  <Text>Invalid Place ID.</Text>
-                  <Button onClick={() => history.push("/")}>Go Back</Button>
-                </Box>
+                // ? <Box>
+                //   <Text>Invalid Place ID.</Text>
+                //   <Button onClick={() => history.push("/")}>Go Back</Button>
+                // </Box>
+                ? <Error />
                 : <PlaceCard
                   key={props.placeList.id}
 
