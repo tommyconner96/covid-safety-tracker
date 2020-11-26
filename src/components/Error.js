@@ -11,7 +11,7 @@ export default function Error() {
           <Text p={6} fontSize='2xl'>
             No Places Found.
           </Text>
-          <Button onClick={() => history.push("/")}>Go Back Home</Button>
+          <Button onClick={() => history.goBack()}>Go Back</Button>
         </VStack>
       </Box>
     </React.Fragment>

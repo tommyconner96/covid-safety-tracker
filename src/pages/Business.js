@@ -38,31 +38,25 @@ export default function Places (props) {
     <React.Fragment>
       {load
         ? <Spinner />
-        : <Box p={6} marginTop={20} w='100%' boxShadow='md' bg='tomato'>
-          <VStack spacing={6}>
-            {empty
-                // ? <Box>
-                //   <Text>Invalid Place ID.</Text>
-                //   <Button onClick={() => history.push("/")}>Go Back</Button>
-                // </Box>
-                ? <Error />
-                : <PlaceCard
-                  key={props.placeList.id}
-
-                    // placeList={props.placeList}
-                  city={props.placeList.city}
-                  state={props.placeList.state}
-                  type={props.placeList.type}
-                  name={props.placeList.name}
-                  vicinity={props.placeList.vicinity}
-                  image={props.placeList.image}
-                  info={props.info}
-                  setInfo={props.setInfo}
-                  placeId={props.placeList.place_id}
-                  />}
-              )
-            </VStack>
-        </Box>}
+        :
+        <VStack spacing={6}>
+          {empty
+              ? <Error />
+              : <PlaceCard
+                key={props.placeList.id}
+                  // placeList={props.placeList}
+                city={props.placeList.city}
+                state={props.placeList.state}
+                type={props.placeList.type}
+                name={props.placeList.name}
+                vicinity={props.placeList.vicinity}
+                image={props.placeList.image}
+                info={props.info}
+                  //   setInfo={props.setInfo}
+                place_id={props.placeList.place_id}
+                />}
+            )
+          </VStack>}
     </React.Fragment>
   )
 }

@@ -19,12 +19,13 @@ import { useHistory } from 'react-router-dom'
 import axios from 'axios'
 
 export default function PlaceCard (props) {
-  const [hasInfo, setHasInfo] = useState(false)
+  //   const [hasInfo, setHasInfo] = useState(false)
   const [load, setLoad] = useState(true)
   const history = useHistory()
-  const placeId = props.placeId
-  const setInfo = props.setInfo
-  const info = props.info
+  const placeId = props.place_id
+  //   const setInfo = props.setInfo
+  //   const info = props.info
+  const [info, setInfo] = useState([])
   useEffect(
     () => {
       axios
@@ -33,7 +34,8 @@ export default function PlaceCard (props) {
           if (res.status === 200) {
             setInfo(res.data)
             console.log(res.data)
-            setHasInfo(true)
+            // setHasInfo(true)
+            setLoad(false)
           }
         })
         .catch(err => {
@@ -45,20 +47,20 @@ export default function PlaceCard (props) {
             indoor: null,
             outdoor: null
           })
+          setLoad(false)
         })
-      setLoad(false)
     },
-    [setInfo, placeId, setLoad]
+    [placeId]
   )
+  //   console.log(info)
   return (
     <React.Fragment>
-      {/* {props.listList.map(place => { */}
-      {/* return ( */}
       <React.Fragment>
         {load
           ? <Spinner />
           : <Flex
             h='100%'
+            // width="auto"
             bg='white'
             borderRadius='md'
             boxShadow='md'
@@ -68,7 +70,11 @@ export default function PlaceCard (props) {
             >
             <Center>
               <Stack marginLeft='1em'>
-                <Button>Update Info</Button>
+                <Button
+                  onClick={() => history.push(`/update/${props.place_id}`)}
+                  >
+                    Update Info
+                  </Button>
                 <Button
                   onClick={() => history.push(`/places/${props.place_id}`)}
                   bg='#5A0CDA'
@@ -79,8 +85,8 @@ export default function PlaceCard (props) {
                   </Button>
               </Stack>
             </Center>
-            <Flex flexDirection='row-reverse' w='30em' key={props.key} p={6}>
-              <Box w='40%' m='0 auto'>
+            <Flex flexDirection='row-reverse' w='45vw' key={props.key} p={6}>
+              <Box width="30vw" m='0 auto'>
                 <Image
                   fallbackSrc='https://via.placeholder.com/500'
                   boxSize='3xs'
@@ -88,7 +94,7 @@ export default function PlaceCard (props) {
                   alt={props.name}
                   />
               </Box>
-              <Flex w='60%' direction='column'>
+              <Flex width="60vw" direction='column'>
                 <Box w='100%' m='0 auto'>
                   <Text fontSize='lg'>
                     {props.name}
@@ -116,12 +122,12 @@ export default function PlaceCard (props) {
                         <ListIcon as={WarningIcon} color='yellow.500' />
                             No info on masks
                           </ListItem>}
-                      {info.masks === 'true' &&
+                      {info.masks === 1 &&
                       <ListItem>
                         <ListIcon as={CheckIcon} color='green.500' />
                             Masks are enforced
                           </ListItem>}
-                      {info.masks === 'false' &&
+                      {info.masks === 0 &&
                       <ListItem>
                         <ListIcon as={CloseIcon} color='red.500' />
                             Masks are NOT enforced
@@ -132,12 +138,12 @@ export default function PlaceCard (props) {
                         <ListIcon as={WarningIcon} color='yellow.500' />
                             No info on contact tracing
                           </ListItem>}
-                      {info.contact_tracing === 'true' &&
+                      {info.contact_tracing === 1 &&
                       <ListItem>
                         <ListIcon as={CheckIcon} color='green.500' />
                             Contact tracing is enforced
                           </ListItem>}
-                      {info.contact_tracing === 'false' &&
+                      {info.contact_tracing === 0 &&
                       <ListItem>
                         <ListIcon as={CloseIcon} color='red.500' />
                             Contact tracing is NOT enforced
@@ -148,12 +154,12 @@ export default function PlaceCard (props) {
                         <ListIcon as={WarningIcon} color='yellow.500' />
                             No info Curbside Service
                           </ListItem>}
-                      {info.curbside === 'true' &&
+                      {info.curbside === 1 &&
                       <ListItem>
                         <ListIcon as={CheckIcon} color='green.500' />
                             Curbside Service is avaliable
                           </ListItem>}
-                      {info.curbside === 'false' &&
+                      {info.curbside === 0 &&
                       <ListItem>
                         <ListIcon as={CloseIcon} color='red.500' />
                             Curbside Service is NOT avaliable
@@ -164,12 +170,12 @@ export default function PlaceCard (props) {
                         <ListIcon as={WarningIcon} color='yellow.500' />
                             No info on indoor seating
                           </ListItem>}
-                      {info.indoor === 'true' &&
+                      {info.indoor === 1 &&
                       <ListItem>
                         <ListIcon as={CheckIcon} color='green.500' />
                             This business has indoor seating opened
                           </ListItem>}
-                      {info.indoor === 'false' &&
+                      {info.indoor === 0 &&
                       <ListItem>
                         <ListIcon as={CloseIcon} color='red.500' />
                             Indoor Seating not avaliable
@@ -179,12 +185,12 @@ export default function PlaceCard (props) {
                         <ListIcon as={WarningIcon} color='yellow.500' />
                             No info on outdoor seating
                           </ListItem>}
-                      {info.outdoor === 'true' &&
+                      {info.outdoor === 1 &&
                       <ListItem>
                         <ListIcon as={CheckIcon} color='green.500' />
                             This business offers outdoor seating
                           </ListItem>}
-                      {info.outdoor === 'false' &&
+                      {info.outdoor === 0 &&
                       <ListItem>
                         <ListIcon as={CloseIcon} color='red.500' />
                             This business does not offer outdoor seating
