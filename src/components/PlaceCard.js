@@ -19,21 +19,26 @@ import { useHistory } from 'react-router-dom'
 import axios from 'axios'
 
 export default function PlaceCard (props) {
-  //   const [hasInfo, setHasInfo] = useState(false)
   const [load, setLoad] = useState(true)
+  const [singleView, setSingleView] = useState(false)
   const history = useHistory()
   const placeId = props.place_id
-  //   const setInfo = props.setInfo
-  //   const info = props.info
   const [info, setInfo] = useState([])
   useEffect(
     () => {
+      console.log('location', history.location)
+      const singlePlace = '/places/'
+      const locationStr = JSON.stringify(history.location)
+      if (locationStr.includes(singlePlace)) {
+        setSingleView(true)
+      }
+
       axios
         .get(`http://localhost:8888/places/${placeId}`)
         .then(res => {
           if (res.status === 200) {
             setInfo(res.data)
-            console.log(res.data)
+            console.log(res)
             // setHasInfo(true)
             setLoad(false)
           }
@@ -75,14 +80,24 @@ export default function PlaceCard (props) {
                   >
                     Update Info
                   </Button>
-                <Button
-                  onClick={() => history.push(`/places/${props.place_id}`)}
-                  bg='#5A0CDA'
-                  color='white'
-                  _hover={{ color: 'black', bg: '#B285FA' }}
-                  >
-                    More Details
-                  </Button>
+                {singleView
+                    ? <Button
+                      bg='#5A0CDA'
+                      color='white'
+                      _hover={{ color: 'black', bg: '#B285FA' }}
+                      onClick={() => history.goBack()}
+                      >
+                        Back
+                      </Button>
+                    : <Button
+                      onClick={() =>
+                          history.push(`/places/${props.place_id}`)}
+                      bg='#5A0CDA'
+                      color='white'
+                      _hover={{ color: 'black', bg: '#B285FA' }}
+                      >
+                        More Details
+                      </Button>}
               </Stack>
             </Center>
             <Flex flexDirection='row-reverse' w='75vw' key={props.key} p={6}>

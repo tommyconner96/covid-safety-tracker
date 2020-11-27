@@ -52,7 +52,7 @@ export default function UpdatePlace (props) {
           if (res.status === 200) {
             setPlaceList(res.data)
           }
-          console.log(res.data)
+          // console.log(res.data)
           //   console.log(props)
           //   setLoad(false)
         })
@@ -67,7 +67,7 @@ export default function UpdatePlace (props) {
           if (res.status === 200) {
             setEdit(res.data)
           }
-          console.log(res.data)
+          // console.log(res.data)
         })
         .catch(res => {
           setEdit(initialEdit)
@@ -116,15 +116,15 @@ export default function UpdatePlace (props) {
     // console.log(name)
     // console.log(val,name)
     for (let [key, value] of Object.entries(clicked)) {
-      console.log(`${key}: ${value}`)
+      // console.log(`${key}: ${value}`)
       if (`${key}` === name) {
-        console.log('yeet', key, name)
+        // console.log('yeet', key, name)
         if (value === 'false') {
           return JSON.stringify(edit[key])
         } else if (value === 'true') {
           return edit[key]
         } else {
-          console.log('err')
+          // console.log('err')
         }
       }
     }
@@ -238,31 +238,25 @@ export default function UpdatePlace (props) {
                           False
                         </Radio>
                     </RadioGroup>
-                    <Button type='submit'>submit</Button>
+                    <Button
+                      type='submit'
+                      bg='#5A0CDA'
+                      color='white'
+                      _hover={{ color: 'black', bg: '#B285FA' }}
+                      >
+                        Submit
+                      </Button>
                   </form>
-
-                  {/* function RadioExample() {
-  const [value, setValue] = React.useState("1")
-  return (
-    <RadioGroup onChange={setValue} value={value}>
-      <Stack direction="row">
-        <Radio value="1">First</Radio>
-        <Radio value="2">Second</Radio>
-        <Radio value="3">Third</Radio>
-      </Stack>
-    </RadioGroup>
-  )
-} */}
                 </Center>
                 <Divider h='10px' marginBottom='5px' />
-                <Button onClick={() => history.goBack()}>Back</Button>
                 <Button
-                  onClick={() => history.push(`/places/${props.place_id}`)}
-                  bg='#5A0CDA'
+                  type='submit'
+                  bg='teal.500'
                   color='white'
                   _hover={{ color: 'black', bg: '#B285FA' }}
+                  onClick={() => history.goBack()}
                   >
-                    Save
+                    Back
                   </Button>
               </Flex>
             </Flex>
