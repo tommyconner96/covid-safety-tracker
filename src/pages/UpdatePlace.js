@@ -17,11 +17,11 @@ import {
 import axios from 'axios'
 
 const initialEdit = {
-  masks: false,
-  contact_tracing: false,
-  curbside: false,
-  indoor: false,
-  outdoor: false,
+  masks: null,
+  contact_tracing: null,
+  curbside: null,
+  indoor: null,
+  outdoor: null,
   place_id: 0
 }
 
@@ -29,6 +29,13 @@ export default function UpdatePlace (props) {
   const [load, setLoad] = useState(true)
   const [empty, setEmpty] = useState(false)
   const [edit, setEdit] = useState(initialEdit)
+  const [clicked, setClicked] = useState({
+    masks: 'false',
+    contact_tracing: 'false',
+    curbside: 'false',
+    indoor: 'false',
+    outdoor: 'false'
+  })
   const history = useHistory()
   const setPlaceList = props.setPlaceList
   const placeList = props.placeList
@@ -51,7 +58,7 @@ export default function UpdatePlace (props) {
         })
         .catch(res => {
           setPlaceList([])
-          setEmpty(true)
+          // setEmpty(true)
           //   setLoad(false)
         })
       axios
@@ -61,36 +68,70 @@ export default function UpdatePlace (props) {
             setEdit(res.data)
           }
           console.log(res.data)
-          setLoad(false)
         })
         .catch(res => {
           setEdit(initialEdit)
           setEmpty(true)
+          axios.post(`http://localhost:8888/places`, {
+            // masks: null,
+            // contact_tracing: null,
+            // curbside: null,
+            // indoor: null,
+            // outdoor: null,
+            place_id: placeId
+          })
         })
-
+      setLoad(false)
     },
     [load, placeId, setPlaceList, view]
   )
 
-    const handleSubmit = (e) => {
-      console.log(edit)
-        axios.put(`http://localhost:8888/places/${placeId}`,edit)
-        .then(res => {
-            
-            console.log(edit.masks)
-            // setLoad(true)
-        })
-    }
+  const handleSubmit = e => {
+    console.log(edit)
+    axios.put(`http://localhost:8888/places/${placeId}`, edit).then(res => {
+      console.log(edit.masks)
+      // setLoad(true)
+    })
+  }
 
-    const handleChange = (e) => {
-        // e.preventDefault()
-        console.log(edit)
-        setEdit({
-            
-            [e.target.name]: e.target.value
-          })
-          console.log(edit.masks)
+  const handleChange = (e) => {
+    // e.preventDefault()
+    console.log(edit)
+    setClicked({
+      ...clicked,
+      [e.target.name]: "true"
+    })
+    setEdit({
+      ...edit,
+      [e.target.name]: e.target.value
+    })
+    console.log(edit.masks)
+    // setLoad(true)
+  }
+
+  const handleInitialValue = (val, name) => {
+      // console.log(clicked)
+      // console.log(val)
+      // console.log(name)
+      // console.log(val,name)
+      for (let [key, value] of Object.entries(clicked)) {
+        console.log(`${key}: ${value}`);
+        if(`${key}` === name) {
+          console.log("yeet", key,name)
+          if (value==='false') {
+            return JSON.stringify(edit[key])
+          }
+          else if (value ==='true') {
+            return edit[key]
+          }
+          else {
+            console.log("err")
+          }
+        }
+      }
+      
     }
+  
 
   return (
     // <React.Fragment>
@@ -126,16 +167,50 @@ export default function UpdatePlace (props) {
                 </Box>
                 <Box>
                   <form onSubmit={handleSubmit}>
-                  <RadioGroup  value={JSON.stringify(edit.masks)}>
-
-                    <Radio onChange={handleChange} name="masks" value="1">True</Radio>
-                    <Radio onChange={handleChange} name="masks" value="0">False</Radio>
-
-                </RadioGroup>
-                <Button type="submit">submit</Button>
+                    <RadioGroup value={handleInitialValue(edit, "masks")} name='masks'>
+                      <Radio onChange={handleChange} value={JSON.stringify(1)}>
+                          True
+                        </Radio>
+                      <Radio onChange={handleChange} value={JSON.stringify(0)}>
+                          False
+                        </Radio>
+                    </RadioGroup>
+                    <RadioGroup value={handleInitialValue(edit, "contact_tracing")} name='contact_tracing'>
+                      <Radio onChange={handleChange} value='1'>
+                          True
+                        </Radio>
+                      <Radio onChange={handleChange}  value='0'>
+                          False
+                        </Radio>
+                    </RadioGroup>
+                    <RadioGroup value={handleInitialValue(edit, "curbside")} name="curbside">
+                      <Radio onChange={handleChange} name='curbside' value='1'>
+                          True
+                        </Radio>
+                      <Radio onChange={handleChange} name='curbside' value='0'>
+                          False
+                        </Radio>
+                    </RadioGroup>
+                    <RadioGroup value={handleInitialValue(edit, "indoor")} name="indoor">
+                      <Radio onChange={handleChange} name='indoor' value='1'>
+                          True
+                        </Radio>
+                      <Radio onChange={handleChange} name='indoor' value='0'>
+                          False
+                        </Radio>
+                    </RadioGroup>
+                    <RadioGroup value={handleInitialValue(edit, "outdoor")} name="outdoor">
+                      <Radio onChange={handleChange} name='outdoor' value='1'>
+                          True
+                        </Radio>
+                      <Radio onChange={handleChange} name='outdoor' value='0'>
+                          False
+                        </Radio>
+                    </RadioGroup>
+                    <Button type='submit'>submit</Button>
                   </form>
 
-                    {/* function RadioExample() {
+                  {/* function RadioExample() {
   const [value, setValue] = React.useState("1")
   return (
     <RadioGroup onChange={setValue} value={value}>
@@ -147,8 +222,6 @@ export default function UpdatePlace (props) {
     </RadioGroup>
   )
 } */}
-
-
                 </Box>
                 <Divider h='10px' marginBottom='5px' />
                 <Button onClick={() => history.goBack()}>Back</Button>
