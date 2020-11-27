@@ -29,9 +29,3 @@ Please make sure to update tests as appropriate.
 
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)
-
-## TODO TOMORROW
-
-implement update info form (simplest, first pass version)
-implement querys into react router url string (ex. localhost:3000/search/TN/Adamshaven would return the results for Adamshaven TN)
-stretch: first pass comments section (no auth/accounts yet)

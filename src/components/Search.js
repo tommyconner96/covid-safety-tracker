@@ -11,6 +11,7 @@ export default function Search(props) {
 
     const handleChange = (e) => {
         e.preventDefault()
+        console.log(props.match)
         console.log(props.search)
         props.setSearch({
             ...props.search, 
@@ -21,7 +22,7 @@ export default function Search(props) {
     const handleSubmit = (e) => {
         // e.preventDefault()
         console.log(props.search)
-        history.push('/search')
+        history.push(`/search/${props.search.search}`)
         // props.setSearch({search:""})
     }
 // FOR DEVELOPMENT ENTER City, STATE ABV.

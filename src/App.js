@@ -9,26 +9,17 @@ import Places from './pages/Places'
 import Business from './pages/Business'
 import UpdatePlace from './pages/UpdatePlace'
 
-export default function App () {
+export default function App (props) {
   const [search, setSearch] = useState({ search: '' })
   const [view, setView] = useState()
-  const [edit, setEdit] = useState({
-    masks: false,
-    contact_tracing: false,
-    curbside: false,
-    indoor: false,
-    outdoor: false
-  })
-
   const [placeList, setPlaceList] = useState([])
-  // const [info, setInfo] = useState([])
 
-  useEffect(
-    () => {
-      console.log(search, 'useEffect App.js')
-    },
-    [search]
-  )
+  // useEffect(
+  //   () => {
+  //     console.log(search, 'useEffect App.js')
+  //   },
+  //   [search]
+  // )
 
   return (
     <Box bg='dodgerblue' textAlign='center' fontSize='xl'>
@@ -49,12 +40,7 @@ export default function App () {
               render={props =>
                 <Business
                   setPlaceList={setPlaceList}
-                  // search={search}
-                  // setSearch={setSearch}
-                  // view={view}
                   placeList={placeList}
-                  // info={info}
-                  // setInfo={setInfo}
                   {...props}
                 />}
             />
@@ -62,33 +48,11 @@ export default function App () {
               exact
               path='/update/:id'
               render={props =>
-                <Flex direction='column'>
-                  <Box marginBottom="5vh">
-                    <Business
-                      setPlaceList={setPlaceList}
-                      // search={search}
-                      // setSearch={setSearch}
-                      // view={view}
-                      placeList={placeList}
-                      // info={info}
-                      // setInfo={setInfo}
-                      {...props}
-                    />
-                  </Box>
-                  <Box>
-                    <UpdatePlace
-                      setPlaceList={setPlaceList}
-                      // search={search}
-                      // setSearch={setSearch}
-                      // edit={edit}
-                      // setEdit={setEdit}
-                      placeList={placeList}
-                      // info={info}
-                      // setInfo={setInfo}
-                      {...props}
-                    />
-                  </Box>
-                </Flex>}
+                <UpdatePlace
+                  setPlaceList={setPlaceList}
+                  placeList={placeList}
+                  {...props}
+                />}
             />
             <Route
               exact
@@ -99,8 +63,8 @@ export default function App () {
             <Route exact path='/about' render={props => <About {...props} />} />
             <Route
               exact
-              path='/search'
-              render={props =>
+              path='/search/:searchQuery'
+              children={props =>
                 <Places
                   placeList={placeList}
                   setPlaceList={setPlaceList}

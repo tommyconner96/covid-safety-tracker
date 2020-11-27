@@ -12,7 +12,7 @@ import {
   Select,
   RadioGroup,
   Radio,
-  Stack
+  Center
 } from '@chakra-ui/react'
 import axios from 'axios'
 
@@ -87,19 +87,20 @@ export default function UpdatePlace (props) {
   )
 
   const handleSubmit = e => {
+    e.preventDefault()
     console.log(edit)
     axios.put(`http://localhost:8888/places/${placeId}`, edit).then(res => {
       console.log(edit.masks)
-      // setLoad(true)
+      history.push(`/places/${placeId}`)
     })
   }
 
-  const handleChange = (e) => {
+  const handleChange = e => {
     // e.preventDefault()
     console.log(edit)
     setClicked({
       ...clicked,
-      [e.target.name]: "true"
+      [e.target.name]: 'true'
     })
     setEdit({
       ...edit,
@@ -110,28 +111,24 @@ export default function UpdatePlace (props) {
   }
 
   const handleInitialValue = (val, name) => {
-      // console.log(clicked)
-      // console.log(val)
-      // console.log(name)
-      // console.log(val,name)
-      for (let [key, value] of Object.entries(clicked)) {
-        console.log(`${key}: ${value}`);
-        if(`${key}` === name) {
-          console.log("yeet", key,name)
-          if (value==='false') {
-            return JSON.stringify(edit[key])
-          }
-          else if (value ==='true') {
-            return edit[key]
-          }
-          else {
-            console.log("err")
-          }
+    // console.log(clicked)
+    // console.log(val)
+    // console.log(name)
+    // console.log(val,name)
+    for (let [key, value] of Object.entries(clicked)) {
+      console.log(`${key}: ${value}`)
+      if (`${key}` === name) {
+        console.log('yeet', key, name)
+        if (value === 'false') {
+          return JSON.stringify(edit[key])
+        } else if (value === 'true') {
+          return edit[key]
+        } else {
+          console.log('err')
         }
       }
-      
     }
-  
+  }
 
   return (
     // <React.Fragment>
@@ -165,33 +162,63 @@ export default function UpdatePlace (props) {
                     {placeList.vicinity}
                   </Text>
                 </Box>
-                <Box>
+                <Center>
                   <form onSubmit={handleSubmit}>
-                    <RadioGroup value={handleInitialValue(edit, "masks")} name='masks'>
-                      <Radio onChange={handleChange} value={JSON.stringify(1)}>
+                    <Text>Masks</Text>
+                    <RadioGroup
+                      value={handleInitialValue(edit, 'masks')}
+                      name='masks'
+                      >
+                      <Radio
+                        onChange={handleChange}
+                        value={JSON.stringify(1)}
+                        >
                           True
                         </Radio>
-                      <Radio onChange={handleChange} value={JSON.stringify(0)}>
+                      <Radio
+                        onChange={handleChange}
+                        value={JSON.stringify(0)}
+                        >
                           False
                         </Radio>
                     </RadioGroup>
-                    <RadioGroup value={handleInitialValue(edit, "contact_tracing")} name='contact_tracing'>
+                    <Text>Contact Tracing</Text>
+                    <RadioGroup
+                      value={handleInitialValue(edit, 'contact_tracing')}
+                      name='contact_tracing'
+                      >
                       <Radio onChange={handleChange} value='1'>
                           True
                         </Radio>
-                      <Radio onChange={handleChange}  value='0'>
+                      <Radio onChange={handleChange} value='0'>
                           False
                         </Radio>
                     </RadioGroup>
-                    <RadioGroup value={handleInitialValue(edit, "curbside")} name="curbside">
-                      <Radio onChange={handleChange} name='curbside' value='1'>
+                    <Text>Curbside</Text>
+                    <RadioGroup
+                      value={handleInitialValue(edit, 'curbside')}
+                      name='curbside'
+                      >
+                      <Radio
+                        onChange={handleChange}
+                        name='curbside'
+                        value='1'
+                        >
                           True
                         </Radio>
-                      <Radio onChange={handleChange} name='curbside' value='0'>
+                      <Radio
+                        onChange={handleChange}
+                        name='curbside'
+                        value='0'
+                        >
                           False
                         </Radio>
                     </RadioGroup>
-                    <RadioGroup value={handleInitialValue(edit, "indoor")} name="indoor">
+                    <Text>Indoor Seating</Text>
+                    <RadioGroup
+                      value={handleInitialValue(edit, 'indoor')}
+                      name='indoor'
+                      >
                       <Radio onChange={handleChange} name='indoor' value='1'>
                           True
                         </Radio>
@@ -199,7 +226,11 @@ export default function UpdatePlace (props) {
                           False
                         </Radio>
                     </RadioGroup>
-                    <RadioGroup value={handleInitialValue(edit, "outdoor")} name="outdoor">
+                    <Text>Outdoor Seating</Text>
+                    <RadioGroup
+                      value={handleInitialValue(edit, 'outdoor')}
+                      name='outdoor'
+                      >
                       <Radio onChange={handleChange} name='outdoor' value='1'>
                           True
                         </Radio>
@@ -222,7 +253,7 @@ export default function UpdatePlace (props) {
     </RadioGroup>
   )
 } */}
-                </Box>
+                </Center>
                 <Divider h='10px' marginBottom='5px' />
                 <Button onClick={() => history.goBack()}>Back</Button>
                 <Button

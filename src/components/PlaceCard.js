@@ -57,7 +57,7 @@ export default function PlaceCard (props) {
     <React.Fragment>
       <React.Fragment>
         {load
-          ? <Spinner />
+          ? <div />
           : <Flex
             h='100%'
             width='auto'
