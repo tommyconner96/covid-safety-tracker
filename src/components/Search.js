@@ -29,7 +29,7 @@ export default function Search(props) {
     <React.Fragment>
         <Input padding='5px' marginBottom="10px" onChange={handleChange} name="search" value={props.search.search} bg="white" placeholder="Enter a city, or zip code" size="lg" />
 
-        <Button onClick={handleSubmit} bg="teal.500" border="1px">
+        <Button onClick={handleSubmit} bg="teal.500" border="1px" width="120px" margin="0 auto">
             Find Places
         </Button>
     </React.Fragment>

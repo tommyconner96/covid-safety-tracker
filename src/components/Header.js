@@ -11,10 +11,11 @@ const Header = props => {
     <Flex
       as="nav"
       height="12vh"
+      minH="45px"
       align="center"
       justify="space-between"
       wrap="wrap"
-      padding="1.5rem"
+      padding="1vh"
       bg="teal.500"
       color="white"
       boxShadow="base"
@@ -51,9 +52,9 @@ const Header = props => {
           About
         </Link>
       </Box>
-      <Button bg="transparent" border="1px" onClick="/account">
+      {/* <Button bg="transparent" border="1px" onClick="/account">
         My Account
-      </Button>
+      </Button> */}
       <Box
         display={{ sm: show ? "block" : "none", md: "block" }}
         mt={{ base: 4, md: 0 }}

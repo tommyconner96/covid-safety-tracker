@@ -1,5 +1,6 @@
+import React from 'react'
 import { useState, useEffect } from 'react'
-import { Box, VStack, Grid } from '@chakra-ui/react'
+import { Box, VStack, Grid, Flex } from '@chakra-ui/react'
 import { Switch, Route } from 'react-router-dom'
 import Header from './components/Header'
 import Home from './pages/Home'
@@ -11,6 +12,14 @@ import UpdatePlace from './pages/UpdatePlace'
 export default function App () {
   const [search, setSearch] = useState({ search: '' })
   const [view, setView] = useState()
+  const [edit, setEdit] = useState({
+    masks: false,
+    contact_tracing: false,
+    curbside: false,
+    indoor: false,
+    outdoor: false
+  })
+
   const [placeList, setPlaceList] = useState([])
   // const [info, setInfo] = useState([])
 
@@ -42,7 +51,7 @@ export default function App () {
                   setPlaceList={setPlaceList}
                   // search={search}
                   // setSearch={setSearch}
-                  view={view}
+                  // view={view}
                   placeList={placeList}
                   // info={info}
                   // setInfo={setInfo}
@@ -53,16 +62,33 @@ export default function App () {
               exact
               path='/update/:id'
               render={props =>
-                <UpdatePlace
-                  setPlaceList={setPlaceList}
-                  // search={search}
-                  // setSearch={setSearch}
-                  // view={view}
-                  placeList={placeList}
-                  // info={info}
-                  // setInfo={setInfo}
-                  {...props}
-                />}
+                <Flex direction='column'>
+                  <Box marginBottom="5vh">
+                    <Business
+                      setPlaceList={setPlaceList}
+                      // search={search}
+                      // setSearch={setSearch}
+                      // view={view}
+                      placeList={placeList}
+                      // info={info}
+                      // setInfo={setInfo}
+                      {...props}
+                    />
+                  </Box>
+                  <Box>
+                    <UpdatePlace
+                      setPlaceList={setPlaceList}
+                      // search={search}
+                      // setSearch={setSearch}
+                      // edit={edit}
+                      // setEdit={setEdit}
+                      placeList={placeList}
+                      // info={info}
+                      // setInfo={setInfo}
+                      {...props}
+                    />
+                  </Box>
+                </Flex>}
             />
             <Route
               exact
@@ -88,7 +114,7 @@ export default function App () {
                 />}
             />
           </Switch>
-          </Box>
+        </Box>
         {/* </VStack> */}
       </Grid>
     </Box>
