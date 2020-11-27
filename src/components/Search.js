@@ -11,6 +11,7 @@ export default function Search(props) {
 
     const handleChange = (e) => {
         e.preventDefault()
+        console.log(props.match)
         console.log(props.search)
         props.setSearch({
             ...props.search, 
@@ -21,7 +22,7 @@ export default function Search(props) {
     const handleSubmit = (e) => {
         // e.preventDefault()
         console.log(props.search)
-        history.push('/search')
+        history.push(`/search/${props.search.search}`)
         // props.setSearch({search:""})
     }
 // FOR DEVELOPMENT ENTER City, STATE ABV.
@@ -29,7 +30,7 @@ export default function Search(props) {
     <React.Fragment>
         <Input padding='5px' marginBottom="10px" onChange={handleChange} name="search" value={props.search.search} bg="white" placeholder="Enter a city, or zip code" size="lg" />
 
-        <Button onClick={handleSubmit} bg="teal.500" border="1px">
+        <Button onClick={handleSubmit} bg="teal.500" border="1px" width="120px" margin="0 auto">
             Find Places
         </Button>
     </React.Fragment>

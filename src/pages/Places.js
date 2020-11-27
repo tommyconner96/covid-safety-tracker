@@ -6,18 +6,15 @@ import PlaceCard from '../components/PlaceCard'
 import Error from '../components/Error'
 
 export default function Places (props) {
-  //   const [placeList, setPlaceList] = useState([])
   const [empty, setEmpty] = useState(true)
   const [load, setLoad] = useState(true)
-  //   const [hasInfo, setHasInfo] = useState(false)
   const setPlaceList = props.setPlaceList
   const search = props.search.search
-  //   const info = props.info
-  //   const placeId = props.placeId
-  //   const setInfo = props.setInfo
+  const searchUrl = props.match.params.searchQuery
 
   useEffect(
     () => {
+      console.log(props)
       const splitPlace = s => {
         const b = s.includes(',')
         if (b === true) {
@@ -38,7 +35,7 @@ export default function Places (props) {
           setLoad(false)
         }
       }
-      splitPlace(search)
+      splitPlace(searchUrl)
     },
     [load, search, setPlaceList, empty]
   )

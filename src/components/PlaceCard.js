@@ -57,10 +57,10 @@ export default function PlaceCard (props) {
     <React.Fragment>
       <React.Fragment>
         {load
-          ? <Spinner />
+          ? <div />
           : <Flex
             h='100%'
-            // width="auto"
+            width='auto'
             bg='white'
             borderRadius='md'
             boxShadow='md'
@@ -69,7 +69,7 @@ export default function PlaceCard (props) {
             }}
             >
             <Center>
-              <Stack marginLeft='1em'>
+              <Stack marginLeft='1vw'>
                 <Button
                   onClick={() => history.push(`/update/${props.place_id}`)}
                   >
@@ -85,22 +85,23 @@ export default function PlaceCard (props) {
                   </Button>
               </Stack>
             </Center>
-            <Flex flexDirection='row-reverse' w='45vw' key={props.key} p={6}>
-              <Box width="30vw" m='0 auto'>
+            <Flex flexDirection='row-reverse' w='75vw' key={props.key} p={6}>
+              <Box width='auto' m='0 auto'>
                 <Image
-                  fallbackSrc='https://via.placeholder.com/500'
+                  float='right'
+                  fallbackSrc='https://via.placeholder.com/300'
                   boxSize='3xs'
                   src={props.image}
                   alt={props.name}
                   />
               </Box>
-              <Flex width="60vw" direction='column'>
+              <Flex width='60vw' direction='column'>
                 <Box w='100%' m='0 auto'>
-                  <Text fontSize='lg'>
+                  <Text fontSize='lg' maxW='30vw'>
                     {props.name}
                   </Text>
                   <Divider h='10px' />
-                  <Text fontSize='sm'>
+                  <Text fontSize='sm' maxW='30vw'>
                     {props.city}, {props.state}
                     <br />
                     {props.type}
@@ -110,7 +111,7 @@ export default function PlaceCard (props) {
                 </Box>
                 <Divider h='10px' />
                 <Box w='100%' m='0 auto'>
-                  <Text marginLeft='2em' fontSize='md'>
+                  <Text marginLeft='1vw' fontSize='md' maxW='30vw'>
                     <List
                       display='flex'
                       flexDirection='column'

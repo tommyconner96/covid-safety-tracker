@@ -1,5 +1,6 @@
+import React from 'react'
 import { useState, useEffect } from 'react'
-import { Box, VStack, Grid } from '@chakra-ui/react'
+import { Box, VStack, Grid, Flex } from '@chakra-ui/react'
 import { Switch, Route } from 'react-router-dom'
 import Header from './components/Header'
 import Home from './pages/Home'
@@ -8,18 +9,17 @@ import Places from './pages/Places'
 import Business from './pages/Business'
 import UpdatePlace from './pages/UpdatePlace'
 
-export default function App () {
+export default function App (props) {
   const [search, setSearch] = useState({ search: '' })
   const [view, setView] = useState()
   const [placeList, setPlaceList] = useState([])
-  // const [info, setInfo] = useState([])
 
-  useEffect(
-    () => {
-      console.log(search, 'useEffect App.js')
-    },
-    [search]
-  )
+  // useEffect(
+  //   () => {
+  //     console.log(search, 'useEffect App.js')
+  //   },
+  //   [search]
+  // )
 
   return (
     <Box bg='dodgerblue' textAlign='center' fontSize='xl'>
@@ -40,12 +40,7 @@ export default function App () {
               render={props =>
                 <Business
                   setPlaceList={setPlaceList}
-                  // search={search}
-                  // setSearch={setSearch}
-                  view={view}
                   placeList={placeList}
-                  // info={info}
-                  // setInfo={setInfo}
                   {...props}
                 />}
             />
@@ -55,12 +50,7 @@ export default function App () {
               render={props =>
                 <UpdatePlace
                   setPlaceList={setPlaceList}
-                  // search={search}
-                  // setSearch={setSearch}
-                  // view={view}
                   placeList={placeList}
-                  // info={info}
-                  // setInfo={setInfo}
                   {...props}
                 />}
             />
@@ -73,8 +63,8 @@ export default function App () {
             <Route exact path='/about' render={props => <About {...props} />} />
             <Route
               exact
-              path='/search'
-              render={props =>
+              path='/search/:searchQuery'
+              children={props =>
                 <Places
                   placeList={placeList}
                   setPlaceList={setPlaceList}
@@ -88,7 +78,7 @@ export default function App () {
                 />}
             />
           </Switch>
-          </Box>
+        </Box>
         {/* </VStack> */}
       </Grid>
     </Box>
