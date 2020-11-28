@@ -14,12 +14,12 @@ export default function App (props) {
   const [view, setView] = useState()
   const [placeList, setPlaceList] = useState([])
 
-  // useEffect(
-  //   () => {
-  //     console.log(search, 'useEffect App.js')
-  //   },
-  //   [search]
-  // )
+  useEffect(
+    () => {
+      console.log(search, 'useEffect App.js')
+    },
+    [search]
+  )
 
   return (
     <Box bg='dodgerblue' textAlign='center' fontSize='xl'>
@@ -41,6 +41,8 @@ export default function App (props) {
                 <Business
                   setPlaceList={setPlaceList}
                   placeList={placeList}
+                  search={search}
+                  setSearch={setSearch}
                   {...props}
                 />}
             />

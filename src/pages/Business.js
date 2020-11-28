@@ -44,7 +44,6 @@ export default function Places (props) {
               ? <Error />
               : <PlaceCard
                 key={props.placeList.id}
-                  // placeList={props.placeList}
                 city={props.placeList.city}
                 state={props.placeList.state}
                 type={props.placeList.type}
@@ -52,8 +51,9 @@ export default function Places (props) {
                 vicinity={props.placeList.vicinity}
                 image={props.placeList.image}
                 info={props.info}
-                  //   setInfo={props.setInfo}
                 place_id={props.placeList.place_id}
+                search={props.search}
+                setSearch={props.setSearch}
                 />}
             )
           </VStack>}
