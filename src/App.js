@@ -32,7 +32,7 @@ export default function App (props) {
         justify='center'
       >
         {/* <VStack spacing={2}> */}
-        <Box p={6} w='100%' boxShadow='md' bg='tomato'>
+        <Box p={6} w='100%'>
           <Switch>
             <Route
               exact
