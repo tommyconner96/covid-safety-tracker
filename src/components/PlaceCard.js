@@ -23,12 +23,18 @@ export default function PlaceCard (props) {
   const [singleView, setSingleView] = useState(false)
   const history = useHistory()
   const placeId = props.place_id
+  const search = props.search
+  const setSearch = props.setSearch
   const [info, setInfo] = useState([])
   useEffect(
     () => {
       console.log('location', history.location)
+      console.log(search)
       const singlePlace = '/places/'
       const locationStr = JSON.stringify(history.location)
+      if (search.search.length === 0) {
+        setSearch({search: `${props.city}, ${props.state}`})
+      }
       if (locationStr.includes(singlePlace)) {
         setSingleView(true)
       }
@@ -85,7 +91,7 @@ export default function PlaceCard (props) {
                       bg='#5A0CDA'
                       color='white'
                       _hover={{ color: 'black', bg: '#B285FA' }}
-                      onClick={() => history.goBack()}
+                      onClick={() => history.push(`/search/${search.search}`)}
                       >
                         Back
                       </Button>

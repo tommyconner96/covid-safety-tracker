@@ -27,7 +27,7 @@ const initialEdit = {
 
 export default function UpdatePlace (props) {
   const [load, setLoad] = useState(true)
-  const [empty, setEmpty] = useState(false)
+  // const [empty, setEmpty] = useState(false)
   const [edit, setEdit] = useState(initialEdit)
   const [clicked, setClicked] = useState({
     masks: 'false',
@@ -40,8 +40,6 @@ export default function UpdatePlace (props) {
   const setPlaceList = props.setPlaceList
   const placeList = props.placeList
   const placeId = props.match.params.id
-  // const edit = props.edit
-  // const setEdit = props.setEdit
   const view = props.view
 
   useEffect(
@@ -71,7 +69,7 @@ export default function UpdatePlace (props) {
         })
         .catch(res => {
           setEdit(initialEdit)
-          setEmpty(true)
+          // setEmpty(true)
           axios.post(`http://localhost:8888/places`, {
             // masks: null,
             // contact_tracing: null,
@@ -83,7 +81,7 @@ export default function UpdatePlace (props) {
         })
       setLoad(false)
     },
-    [load, placeId, setPlaceList, view]
+    [load]
   )
 
   const handleSubmit = e => {

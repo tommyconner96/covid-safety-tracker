@@ -60,6 +60,8 @@ export default function Places (props) {
                     name={place.name}
                     vicinity={place.vicinity}
                     image={place.image}
+                    search={props.search}
+                    setSearch={props.setSearch}
                     />
                 )
               })}
