@@ -1,6 +1,7 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
-import { Text, VStack, Box, Image, Spinner } from '@chakra-ui/react'
+import {useHistory} from 'react-router-dom'
+import { Text, VStack, Box, Button, Spinner } from '@chakra-ui/react'
 import axios from 'axios'
 import PlaceCard from '../components/PlaceCard'
 import Error from '../components/Error'
@@ -11,6 +12,7 @@ export default function Places (props) {
   const setPlaceList = props.setPlaceList
   const search = props.search.search
   const searchUrl = props.match.params.searchQuery
+  const history = useHistory()
 
   useEffect(
     () => {
@@ -44,7 +46,9 @@ export default function Places (props) {
     <React.Fragment>
       {load
         ? <Spinner />
-        : <VStack spacing={6}>
+        : 
+        <VStack spacing={6}>
+                  <Button bg="teal.500" color="white" width="120px" margin="0 auto" onClick={() => history.goBack()}>Back</Button>
           {empty
               ? <Error />
               : props.placeList.map(place => {
