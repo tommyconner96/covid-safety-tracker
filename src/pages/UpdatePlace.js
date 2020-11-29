@@ -41,11 +41,12 @@ export default function UpdatePlace (props) {
   const placeList = props.placeList
   const placeId = props.match.params.id
   const view = props.view
+  const apiKey = process.env.REACT_APP_PLACES_KEY
 
   useEffect(
     () => {
       axios
-        .get(`https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/details/json?placeid=${placeId}&fields=place_id,name,vicinity,icon&key=AIzaSyBmJo-FgVip5flBR_KqPidNgR7wTNCSN6A`)
+        .get(`https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/details/json?placeid=${placeId}&fields=place_id,name,vicinity,icon&key=${apiKey}`)
         .then(res => {
           if (res.status === 200) {
             setPlaceList(res.data)

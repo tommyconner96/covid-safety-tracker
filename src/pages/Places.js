@@ -15,33 +15,11 @@ export default function Places (props) {
   const search = props.search
   const searchUrl = props.match.params.searchQuery
   const history = useHistory()
+  const apiKey = process.env.REACT_APP_PLACES_KEY
 
   useEffect(
     () => {
-      console.log(search)
-      // if (search.length > 0) {
-      //   console.log(search)
-      //   axios
-      //     .get(
-      //       `https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${search[0]},${search[1]}&radius=5000&key=AIzaSyBmJo-FgVip5flBR_KqPidNgR7wTNCSN6A`
-      //     )
-      //     .then(res => {
-      //       const a = []
-      //       for (let [key, value] of Object.entries(res.data.results)) {
-      //         a.push({
-      //           place_id: value.place_id,
-      //           name: value.name,
-      //           vicinity: value.vicinity,
-      //           icon: value.icon
-      //         })
-      //       }
-      //       setPlaceList(a)
-      //       setLoad(false)
-      //       setEmpty(false)
-      //     })
-      // } else {
-        console.log(searchUrl)
-        axios.get(`https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${searchUrl}&radius=5000&key=AIzaSyBmJo-FgVip5flBR_KqPidNgR7wTNCSN6A`)
+        axios.get(`https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${searchUrl}&radius=5000&key=${apiKey}`)
         .then(res => {
           const a = []
           for (let [key, value] of Object.entries(res.data.results)) {
