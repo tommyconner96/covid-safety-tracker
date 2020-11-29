@@ -45,7 +45,7 @@ export default function UpdatePlace (props) {
   useEffect(
     () => {
       axios
-        .get(`http://localhost:5000/places/${placeId}`)
+        .get(`https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/details/json?placeid=${placeId}&fields=place_id,name,vicinity,icon&key=AIzaSyBmJo-FgVip5flBR_KqPidNgR7wTNCSN6A`)
         .then(res => {
           if (res.status === 200) {
             setPlaceList(res.data)
@@ -55,7 +55,8 @@ export default function UpdatePlace (props) {
           //   setLoad(false)
         })
         .catch(res => {
-          setPlaceList([])
+          // setPlaceList([])
+          console.log(res)
           // setEmpty(true)
           //   setLoad(false)
         })
@@ -88,7 +89,7 @@ export default function UpdatePlace (props) {
     e.preventDefault()
     console.log(edit)
     axios.put(`http://localhost:8888/places/${placeId}`, edit).then(res => {
-      history.push(`/places/${placeId}`)
+      history.goBack()
     })
   }
 

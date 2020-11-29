@@ -1,7 +1,8 @@
 import React from 'react'
-import { Input, Button, Center, Flex } from '@chakra-ui/react'
+import { Input, Button, Center, Box } from '@chakra-ui/react'
 import { useState, useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
+import GoogleSearch from './GoogleSearch'
 
 export default function Search (props) {
   const history = useHistory()
@@ -19,7 +20,7 @@ export default function Search (props) {
   const handleSubmit = e => {
     // e.preventDefault()
     console.log(props.search)
-    history.push(`/search/${props.search.search}`)
+    history.push(`/search/${props.search[0]},${props.search[1]}`)
     // props.setSearch({search:""})
   }
   // FOR DEVELOPMENT ENTER City, STATE ABV.
@@ -37,7 +38,7 @@ export default function Search (props) {
           boxShadow: 'lg'
         }}
       >
-        <Input
+        {/* <Input
           padding='5px'
           maxW='300px'
           margin='0 auto'
@@ -49,7 +50,16 @@ export default function Search (props) {
           bg='white'
           placeholder='Enter a city, or zip code'
           size='lg'
-        />
+        /> */}
+        <Box
+          padding='5px'
+          maxW='300px'
+          margin='0 auto'
+          marginBottom='1em'
+          marginTop='1em'
+        >
+          <GoogleSearch search={props.search} setSearch={props.setSearch} />
+        </Box>
 
         <Button
           onClick={handleSubmit}
@@ -57,7 +67,7 @@ export default function Search (props) {
           bg='teal.500'
           width='120px'
           margin='0 auto'
-          marginBottom="1em"
+          marginBottom='1em'
         >
           Find Places
         </Button>

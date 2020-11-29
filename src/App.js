@@ -10,7 +10,7 @@ import Business from './pages/Business'
 import UpdatePlace from './pages/UpdatePlace'
 
 export default function App (props) {
-  const [search, setSearch] = useState({ search: '' })
+  const [search, setSearch] = useState([])
   const [view, setView] = useState()
   const [placeList, setPlaceList] = useState([])
 
@@ -37,7 +37,7 @@ export default function App (props) {
             <Route
               exact
               path='/places/:id'
-              render={props =>
+              children={props =>
                 <Business
                   setPlaceList={setPlaceList}
                   placeList={placeList}

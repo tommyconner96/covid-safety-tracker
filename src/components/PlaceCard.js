@@ -32,9 +32,9 @@ export default function PlaceCard (props) {
       console.log(search)
       const singlePlace = '/places/'
       const locationStr = JSON.stringify(history.location)
-      if (search.search.length === 0) {
-        setSearch({search: `${props.city}, ${props.state}`})
-      }
+      // if (search.search.length === 0) {
+      //   setSearch({search: `${props.city}, ${props.state}`})
+      // }
       if (locationStr.includes(singlePlace)) {
         setSingleView(true)
       }
@@ -91,7 +91,7 @@ export default function PlaceCard (props) {
                       bg='#5A0CDA'
                       color='white'
                       _hover={{ color: 'black', bg: '#B285FA' }}
-                      onClick={() => history.push(`/search/${search.search}`)}
+                      onClick={() => history.push(`/search/${search[0]},${search[1]}`)}
                       >
                         Back
                       </Button>
@@ -110,9 +110,9 @@ export default function PlaceCard (props) {
               <Box width='auto' m='0 auto'>
                 <Image
                   float='right'
-                  fallbackSrc='https://via.placeholder.com/300'
-                  boxSize='3xs'
-                  src={props.image}
+                  fallbackSrc='https://via.placeholder.com/75'
+                  // boxSize='3xs'
+                  src={props.icon}
                   alt={props.name}
                   />
               </Box>
@@ -122,11 +122,11 @@ export default function PlaceCard (props) {
                     {props.name}
                   </Text>
                   <Divider h='10px' />
-                  <Text fontSize='sm' maxW='30vw'>
-                    {props.city}, {props.state}
+                  <Text fontSize='md' maxW='30vw'>
+                    {/* {props.city} {props.state}
                     <br />
                     {props.type}
-                    <br />
+                    <br /> */}
                     {props.vicinity}
                   </Text>
                 </Box>
