@@ -10,7 +10,7 @@ import Business from './pages/Business'
 import UpdatePlace from './pages/UpdatePlace'
 
 export default function App (props) {
-  const [search, setSearch] = useState({ search: '' })
+  const [search, setSearch] = useState([])
   const [view, setView] = useState()
   const [placeList, setPlaceList] = useState([])
 
@@ -32,12 +32,12 @@ export default function App (props) {
         justify='center'
       >
         {/* <VStack spacing={2}> */}
-        <Box p={6} w='100%' boxShadow='md' bg='tomato'>
+        <Box p={6} w='100%'>
           <Switch>
             <Route
               exact
               path='/places/:id'
-              render={props =>
+              children={props =>
                 <Business
                   setPlaceList={setPlaceList}
                   placeList={placeList}

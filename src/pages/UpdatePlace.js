@@ -45,7 +45,7 @@ export default function UpdatePlace (props) {
   useEffect(
     () => {
       axios
-        .get(`http://localhost:5000/places/${placeId}`)
+        .get(`https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/details/json?placeid=${placeId}&fields=place_id,name,vicinity,icon&key=AIzaSyBmJo-FgVip5flBR_KqPidNgR7wTNCSN6A`)
         .then(res => {
           if (res.status === 200) {
             setPlaceList(res.data)
@@ -55,7 +55,8 @@ export default function UpdatePlace (props) {
           //   setLoad(false)
         })
         .catch(res => {
-          setPlaceList([])
+          // setPlaceList([])
+          console.log(res)
           // setEmpty(true)
           //   setLoad(false)
         })
@@ -88,8 +89,7 @@ export default function UpdatePlace (props) {
     e.preventDefault()
     console.log(edit)
     axios.put(`http://localhost:8888/places/${placeId}`, edit).then(res => {
-      console.log(edit.masks)
-      history.push(`/places/${placeId}`)
+      history.goBack()
     })
   }
 
@@ -108,21 +108,15 @@ export default function UpdatePlace (props) {
     // setLoad(true)
   }
 
-  const handleInitialValue = (val, name) => {
-    // console.log(clicked)
-    // console.log(val)
-    // console.log(name)
-    // console.log(val,name)
+  const handleInitialValue = name => {
     for (let [key, value] of Object.entries(clicked)) {
-      // console.log(`${key}: ${value}`)
       if (`${key}` === name) {
-        // console.log('yeet', key, name)
         if (value === 'false') {
           return JSON.stringify(edit[key])
         } else if (value === 'true') {
           return edit[key]
         } else {
-          // console.log('err')
+          console.log('err')
         }
       }
     }
@@ -137,7 +131,7 @@ export default function UpdatePlace (props) {
           ? <Spinner />
           : <Flex
             h='100%'
-            width='65vw'
+            width='22em'
             bg='white'
             borderRadius='md'
             boxShadow='md'
@@ -145,7 +139,7 @@ export default function UpdatePlace (props) {
               boxShadow: 'lg'
             }}
             >
-            <Flex flexDirection='column' w='75vw' key={placeList.key} p={6}>
+            <Center flexDirection='column' w='100%' key={placeList.key} p={6}>
               <Flex direction='column'>
                 <Box>
                   <Text fontSize='lg'>
@@ -164,79 +158,106 @@ export default function UpdatePlace (props) {
                   <form onSubmit={handleSubmit}>
                     <Text>Masks</Text>
                     <RadioGroup
-                      value={handleInitialValue(edit, 'masks')}
+                      value={handleInitialValue('masks')}
                       name='masks'
                       >
-                      <Radio
-                        onChange={handleChange}
-                        value={JSON.stringify(1)}
-                        >
-                          True
-                        </Radio>
-                      <Radio
-                        onChange={handleChange}
-                        value={JSON.stringify(0)}
-                        >
-                          False
-                        </Radio>
+                      <Flex justifyContent='space-between'>
+                        <Radio
+                          onChange={handleChange}
+                          value={JSON.stringify(1)}
+                          >
+                            True
+                          </Radio>
+                        <Radio
+                          onChange={handleChange}
+                          value={JSON.stringify(0)}
+                          >
+                            False
+                          </Radio>
+                      </Flex>
                     </RadioGroup>
                     <Text>Contact Tracing</Text>
                     <RadioGroup
-                      value={handleInitialValue(edit, 'contact_tracing')}
+                      value={handleInitialValue('contact_tracing')}
                       name='contact_tracing'
                       >
-                      <Radio onChange={handleChange} value='1'>
-                          True
-                        </Radio>
-                      <Radio onChange={handleChange} value='0'>
-                          False
-                        </Radio>
+                      <Flex justifyContent='space-between'>
+                        <Radio onChange={handleChange} value='1'>
+                            True
+                          </Radio>
+                        <Radio onChange={handleChange} value='0'>
+                            False
+                          </Radio>
+                      </Flex>
                     </RadioGroup>
                     <Text>Curbside</Text>
                     <RadioGroup
-                      value={handleInitialValue(edit, 'curbside')}
+                      value={handleInitialValue('curbside')}
                       name='curbside'
                       >
-                      <Radio
-                        onChange={handleChange}
-                        name='curbside'
-                        value='1'
-                        >
-                          True
-                        </Radio>
-                      <Radio
-                        onChange={handleChange}
-                        name='curbside'
-                        value='0'
-                        >
-                          False
-                        </Radio>
+                      <Flex justifyContent='space-between'>
+                        <Radio
+                          onChange={handleChange}
+                          name='curbside'
+                          value='1'
+                          >
+                            True
+                          </Radio>
+                        <Radio
+                          onChange={handleChange}
+                          name='curbside'
+                          value='0'
+                          >
+                            False
+                          </Radio>
+                      </Flex>
                     </RadioGroup>
                     <Text>Indoor Seating</Text>
                     <RadioGroup
-                      value={handleInitialValue(edit, 'indoor')}
+                      value={handleInitialValue('indoor')}
                       name='indoor'
                       >
-                      <Radio onChange={handleChange} name='indoor' value='1'>
-                          True
-                        </Radio>
-                      <Radio onChange={handleChange} name='indoor' value='0'>
-                          False
-                        </Radio>
+                      <Flex justifyContent='space-between'>
+                        <Radio
+                          onChange={handleChange}
+                          name='indoor'
+                          value='1'
+                          >
+                            True
+                          </Radio>
+                        <Radio
+                          onChange={handleChange}
+                          name='indoor'
+                          value='0'
+                          >
+                            False
+                          </Radio>
+                      </Flex>
                     </RadioGroup>
                     <Text>Outdoor Seating</Text>
                     <RadioGroup
-                      value={handleInitialValue(edit, 'outdoor')}
+                      value={handleInitialValue('outdoor')}
                       name='outdoor'
                       >
-                      <Radio onChange={handleChange} name='outdoor' value='1'>
-                          True
-                        </Radio>
-                      <Radio onChange={handleChange} name='outdoor' value='0'>
-                          False
-                        </Radio>
+                      <Flex justifyContent='space-between'>
+                        <Radio
+                          onChange={handleChange}
+                          name='outdoor'
+                          value='1'
+                          >
+                            True
+                          </Radio>
+                        <Radio
+                          onChange={handleChange}
+                          name='outdoor'
+                          value='0'
+                          >
+                            False
+                          </Radio>
+                      </Flex>
                     </RadioGroup>
                     <Button
+                    marginTop="1em"
                       type='submit'
                       bg='#5A0CDA'
                       color='white'
@@ -257,7 +278,7 @@ export default function UpdatePlace (props) {
                     Back
                   </Button>
               </Flex>
-            </Flex>
+            </Center>
           </Flex>}
       </VStack>
       {/* </Box> */}

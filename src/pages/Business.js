@@ -11,25 +11,30 @@ export default function Places (props) {
   const [empty, setEmpty] = useState(false)
   const history = useHistory()
   const setPlaceList = props.setPlaceList
+  const placeList = props.placeList
   const placeId = props.match.params.id
 
   useEffect(
     () => {
       axios
-        .get(`http://localhost:5000/places/${placeId}`)
+        .get(`https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/details/json?placeid=${placeId}&fields=place_id,name,vicinity,icon&key=AIzaSyBmJo-FgVip5flBR_KqPidNgR7wTNCSN6A`)
         .then(res => {
-          if (res.status === 200) {
-            setPlaceList(res.data)
-          }
+          // const a = []
           console.log(res.data)
-          //   console.log(props)
+          setPlaceList({
+            place_id: placeId,
+            name: res.data.result.name,
+            icon: res.data.result.icon,
+            vicinity: res.data.result.vicinity
+          })
           setLoad(false)
+          setEmpty(false)
         })
-        .catch(res => {
-          setPlaceList([])
-          setEmpty(true)
-          setLoad(false)
-        })
+        // .catch(res => {
+        //   setPlaceList([])
+        //   setEmpty(true)
+        //   setLoad(false)
+        // })
     },
     [load, props.view, placeId, setPlaceList]
   )
@@ -43,15 +48,15 @@ export default function Places (props) {
           {empty
               ? <Error />
               : <PlaceCard
-                key={props.placeList.id}
-                city={props.placeList.city}
-                state={props.placeList.state}
-                type={props.placeList.type}
-                name={props.placeList.name}
-                vicinity={props.placeList.vicinity}
-                image={props.placeList.image}
+                key={placeList.id}
+                city={placeList.city}
+                state={placeList.state}
+                type={placeList.type}
+                name={placeList.name}
+                vicinity={placeList.vicinity}
+                icon={placeList.icon}
                 info={props.info}
-                place_id={props.placeList.place_id}
+                place_id={placeList.place_id}
                 search={props.search}
                 setSearch={props.setSearch}
                 />}
