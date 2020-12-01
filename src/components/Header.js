@@ -3,17 +3,17 @@ import { Box, Heading, Flex, Text, Button, Link } from "@chakra-ui/react"
 
 // based on https://github.com/chakra-ui/codesandbox-react-js-template/blob/master/src/App.js
 
-const Header = props => {
-  const [show, setShow] = useState(false)
-  const handleToggle = () => setShow(!show)
+export default function Header(props) {
+  // const [show, setShow] = useState(false)
+  // const handleToggle = () => setShow(!show)
 
   return (
     <Flex
       as="nav"
-      height="12vh"
-      minH="45px"
+      height={{sm:"15vh", md:"12vh"}}
+      minH={{sm:"100px", md:"45px"}}
       align="center"
-      justify="space-between"
+      justify="center"
       wrap="wrap"
       padding="1vh"
       bg="#4387f4"
@@ -29,38 +29,38 @@ const Header = props => {
         </Heading>
       </Flex>
       <Box
-        display={{ sm: show ? "block" : "none", md: "flex" }}
-        width={{ sm: "full", md: "auto" }}
-        alignItems="center"
+        // display={{ sm: show ? "block" : "none", md: "flex" }}
+        display="flex"
+        // bg="tomato"
+        width={{ sm: "auto", md: "auto" }}
+        // alignItems="center"
+        // justifyItems="center"
+        justifyContent={{md:"normal", sm:"center"}}
         flexGrow={1}
       >
-        <Link mt={{ base: 4, md: 0 }} mr={6} display="block" href="/places">
+        <Link mt={{ base: 4, md: 0 }} mr={6}  href="/places">
           Places
         </Link>
-        <Link mt={{ base: 4, md: 0 }} mr={6} display="block" href="/search">
+        <Link mt={{ base: 4, md: 0 }} mr={6} href="/search">
           Search
         </Link>
         <Link
           mt={{ base: 4, md: 0 }}
           mr={6}
-          display="block"
           href="/account/saved"
         >
           Saved
         </Link>
-        <Link mt={{ base: 4, md: 0 }} mr={6} display="block" href="/about">
+        <Link mt={{ base: 4, md: 0 }} mr={6}  href="/about">
           About
         </Link>
       </Box>
-      {/* <Button bg="transparent" border="1px" onClick="/account">
-        My Account
-      </Button> */}
-      <Box
-        display={{ sm: show ? "block" : "none", md: "block" }}
+      {/* <Box
+        display={{ sm: "block", md: "block" }}
         mt={{ base: 4, md: 0 }}
-      />
+      /> */}
 
-      <Box display={{ base: "block", md: "none" }} onClick={handleToggle}>
+      {/* <Box display={{ base: "block", md: "none" }} onClick={handleToggle}>
         <svg
           fill="white"
           width="12px"
@@ -70,9 +70,7 @@ const Header = props => {
           <title>Menu</title>
           <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" />
         </svg>
-      </Box>
+      </Box> */}
     </Flex>
   )
 }
-
-export default Header

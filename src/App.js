@@ -28,7 +28,7 @@ export default function App (props) {
     <Box bg="#eee" textAlign='center' fontSize='xl'>
       <Header />
       <Flex
-        minH='88vh'
+        minH={{sm:"85vh", md:"88vh"}}
         p={3}
         direction='column'
         flexWrap='wrap'
