@@ -8,31 +8,35 @@ import About from './pages/About'
 import Places from './pages/Places'
 import Business from './pages/Business'
 import UpdatePlace from './pages/UpdatePlace'
+import Search from './components/Search'
 
 export default function App (props) {
   const [search, setSearch] = useState([])
   const [view, setView] = useState()
   const [placeList, setPlaceList] = useState([])
+  const [refresh, setRefresh] = useState(false)
 
   useEffect(
     () => {
       console.log(search, 'useEffect App.js')
+      // setRefresh(false)
     },
-    [search]
+    [search, refresh]
   )
 
   return (
-    <Box bg='dodgerblue' textAlign='center' fontSize='xl'>
+    <Box bg="#eee" textAlign='center' fontSize='xl'>
       <Header />
-      <Grid
+      <Flex
         minH='88vh'
         p={3}
         direction='column'
+        flexWrap='wrap'
         align='center'
         justify='center'
       >
         {/* <VStack spacing={2}> */}
-        <Box p={6} w='100%'>
+        <Box flexWrap='wrap' width='100%'>
           <Switch>
             <Route
               exact
@@ -67,22 +71,31 @@ export default function App (props) {
               exact
               path='/search/:searchQuery'
               children={props =>
-                <Places
-                  placeList={placeList}
-                  setPlaceList={setPlaceList}
-                  search={search}
-                  setSearch={setSearch}
-                  view={view}
-                  setView={setView}
-                  // info={info}
-                  // setInfo={setInfo}
-                  {...props}
-                />}
+                <React.Fragment>
+                  {/* <Search
+                    search={search}
+                    setSearch={setSearch}
+                    setRefresh={setRefresh}
+                  /> */}
+                  <Places
+                    placeList={placeList}
+                    setPlaceList={setPlaceList}
+                    search={search}
+                    setSearch={setSearch}
+                    view={view}
+                    setView={setView}
+                    refresh={refresh}
+                    setRefresh={setRefresh}
+                    // info={info}
+                    // setInfo={setInfo}
+                    {...props}
+                  />
+                </React.Fragment>}
             />
           </Switch>
         </Box>
         {/* </VStack> */}
-      </Grid>
+      </Flex>
     </Box>
   )
 }

@@ -7,9 +7,9 @@ function Home (props) {
     <React.Fragment>
       {/* <Box p={6} marginTop={20} borderRadius='md' boxShadow='md' bg='tomato'> */}
       <Flex direction='column'>
-        <Text p={6} fontSize='2xl'>
+        {/* <Text fontSize='2xl'>
           Look up local businesses by entering a city or zip code:
-        </Text>
+        </Text> */}
         <Flex direction='column' padding='5px'>
           <Search search={props.search} setSearch={props.setSearch} />
         </Flex>

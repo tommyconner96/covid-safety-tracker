@@ -6,6 +6,7 @@ import GoogleSearch from './GoogleSearch'
 
 export default function Search (props) {
   const history = useHistory()
+  const setRefresh = props.setRefresh
 
   const handleChange = e => {
     e.preventDefault()
@@ -21,6 +22,7 @@ export default function Search (props) {
     // e.preventDefault()
     console.log(props.search)
     history.push(`/search/${props.search[0]},${props.search[1]}`)
+    // window.location.reload()
     // props.setSearch({search:""})
   }
   // FOR DEVELOPMENT ENTER City, STATE ABV.
@@ -29,7 +31,7 @@ export default function Search (props) {
       <Center
         flexDirection='column'
         // h='100%'
-        width='22em'
+        width='80%'
         margin='0 auto'
         bg='white'
         borderRadius='md'
@@ -53,8 +55,6 @@ export default function Search (props) {
         /> */}
         <Box
           padding='5px'
-          maxW='300px'
-          margin='0 auto'
           marginBottom='1em'
           marginTop='1em'
         >
@@ -63,9 +63,9 @@ export default function Search (props) {
 
         <Button
           onClick={handleSubmit}
+          bg='#4387f4'
           color='white'
-          bg='teal.500'
-          width='120px'
+          _hover={{ color: 'black', bg: '#B285FA' }}
           margin='0 auto'
           marginBottom='1em'
         >

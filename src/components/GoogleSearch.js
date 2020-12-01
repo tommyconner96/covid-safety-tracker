@@ -6,7 +6,7 @@ import usePlacesAutocomplete, {
   getLatLng
 } from 'use-places-autocomplete'
 import useOnclickOutside from 'react-cool-onclickoutside'
-import { Input, ListItem } from '@chakra-ui/react'
+import { Input, Button, List, Box, Text } from '@chakra-ui/react'
 
 export default function PlacesAutocomplete (props) {
   const setSearch = props.setSearch
@@ -59,15 +59,20 @@ export default function PlacesAutocomplete (props) {
       } = suggestion
 
       return (
-        <ListItem key={place_id} onClick={handleSelect(suggestion)}>
-          <strong>{main_text}</strong> <small>{secondary_text}</small>
-        </ListItem>
+        <List>
+          <Button key={place_id} onClick={handleSelect(suggestion)}>
+            <Text>{main_text}</Text> <small>{secondary_text}</small>
+          </Button>
+        </List>
+
+        //
       )
     })
 
   return (
     <div ref={ref}>
       <Input
+        width="50vw"
         value={value}
         onChange={handleInput}
         disabled={!ready}
@@ -75,9 +80,11 @@ export default function PlacesAutocomplete (props) {
       />
       {/* We can use the "status" to decide whether we should display the dropdown or not */}
       {status === 'OK' &&
-        <ul>
-          {renderSuggestions()}
-        </ul>}
+        <Box>
+          <List>
+            {renderSuggestions()}
+          </List>
+        </Box>}
     </div>
   )
 }
