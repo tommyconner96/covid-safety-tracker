@@ -16,16 +16,15 @@ import {
 } from '@chakra-ui/react'
 import axios from 'axios'
 
-const initialEdit = {
-  masks: null,
-  contact_tracing: null,
-  curbside: null,
-  indoor: null,
-  outdoor: null,
-  place_id: 0
-}
-
 export default function UpdatePlace (props) {
+  const initialEdit = {
+    masks: null,
+    contact_tracing: null,
+    curbside: null,
+    indoor: null,
+    outdoor: null,
+    place_id: 0
+  }
   const [load, setLoad] = useState(true)
   // const [empty, setEmpty] = useState(false)
   const [edit, setEdit] = useState(initialEdit)
@@ -42,14 +41,16 @@ export default function UpdatePlace (props) {
   const placeId = props.match.params.id
   const view = props.view
   const apiKey = process.env.REACT_APP_PLACES_KEY
+  const searchUrl = window.sessionStorage.getItem("search")
 
   useEffect(
     () => {
       axios
-        .get(`https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/details/json?placeid=${placeId}&fields=place_id,name,vicinity,icon&key=${apiKey}`)
+        .get(`http://localhost:8888/googleApi/byId/${placeId}`)
         .then(res => {
           if (res.status === 200) {
             setPlaceList(res.data)
+            console.log("URL", searchUrl)
           }
           // console.log(res.data)
           //   console.log(props)
@@ -70,8 +71,8 @@ export default function UpdatePlace (props) {
           // console.log(res.data)
         })
         .catch(res => {
-          setEdit(initialEdit)
-          // setEmpty(true)
+          // setEdit(initialEdit)
+          console.log("err")
           axios.post(`http://localhost:8888/places`, {
             // masks: null,
             // contact_tracing: null,
@@ -90,7 +91,7 @@ export default function UpdatePlace (props) {
     e.preventDefault()
     console.log(edit)
     axios.put(`http://localhost:8888/places/${placeId}`, edit).then(res => {
-      history.goBack()
+      history.push(`../search/${searchUrl}`)
     })
   }
 
@@ -132,6 +133,7 @@ export default function UpdatePlace (props) {
           ? <Spinner />
           : <Flex
             h='100%'
+            border='1px solid gray'
             width='22em'
             bg='white'
             borderRadius='md'
@@ -145,6 +147,7 @@ export default function UpdatePlace (props) {
                 <Box>
                   <Text fontSize='lg'>
                     {placeList.name}
+                    
                   </Text>
                   <Divider h='10px' />
                   <Text fontSize='sm'>

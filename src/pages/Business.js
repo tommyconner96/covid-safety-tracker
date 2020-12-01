@@ -1,7 +1,7 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
-import { Text, VStack, Box, Button, Spinner } from '@chakra-ui/react'
+import { Text, VStack, Box, Button, Spinner, Center } from '@chakra-ui/react'
 import axios from 'axios'
 import PlaceCard from '../components/PlaceCard'
 import Error from '../components/Error'
@@ -13,15 +13,17 @@ export default function Places (props) {
   const setPlaceList = props.setPlaceList
   const placeList = props.placeList
   const placeId = props.match.params.id
-  const apiKey = process.env.REACT_APP_PLACES_KEY
+  const searchSession = window.sessionStorage.getItem('search')
+  const search = searchSession.split(',')
 
   useEffect(
     () => {
       axios
-        .get(`https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/details/json?placeid=${placeId}&fields=place_id,name,vicinity,icon&key=${apiKey}`)
+        .get(`http://localhost:8888/googleApi/byId/${placeId}`)
         .then(res => {
           // const a = []
-          console.log(process.env)
+          console.log(search)
+          console.log(res.config.url)
           // console.log(res.data)
           setPlaceList({
             place_id: placeId,
@@ -32,11 +34,9 @@ export default function Places (props) {
           setLoad(false)
           setEmpty(false)
         })
-        // .catch(res => {
-        //   setPlaceList([])
-        //   setEmpty(true)
-        //   setLoad(false)
-        // })
+        .catch(res => {
+          console.log(res, 'Error called from useEffect in Business.js')
+        })
     },
     [load, props.view, placeId, setPlaceList]
   )
@@ -45,25 +45,25 @@ export default function Places (props) {
     <React.Fragment>
       {load
         ? <Spinner />
-        :
-        <VStack spacing={6}>
+        : <Center spacing={6} width='100%'>
           {empty
               ? <Error />
-              : <PlaceCard
-                key={placeList.id}
-                city={placeList.city}
-                state={placeList.state}
-                type={placeList.type}
-                name={placeList.name}
-                vicinity={placeList.vicinity}
-                icon={placeList.icon}
-                info={props.info}
-                place_id={placeList.place_id}
-                search={props.search}
-                setSearch={props.setSearch}
-                />}
-            )
-          </VStack>}
+              : <Box width='100%' height='auto' margin='20px'>
+                <PlaceCard
+                  key={placeList.id}
+                  city={placeList.city}
+                  state={placeList.state}
+                  type={placeList.type}
+                  name={placeList.name}
+                  vicinity={placeList.vicinity}
+                  icon={placeList.icon}
+                  info={props.info}
+                  place_id={placeList.place_id}
+                  search={search}
+                  setSearch={props.setSearch}
+                  />
+              </Box>}
+        </Center>}
     </React.Fragment>
   )
 }

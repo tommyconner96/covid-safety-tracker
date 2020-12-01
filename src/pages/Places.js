@@ -1,7 +1,15 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
-import { Text, VStack, Center, Button, Spinner } from '@chakra-ui/react'
+import {
+  Text,
+  VStack,
+  Center,
+  Button,
+  Spinner,
+  Box,
+  Flex
+} from '@chakra-ui/react'
 import axios from 'axios'
 import PlaceCard from '../components/PlaceCard'
 import Error from '../components/Error'
@@ -13,15 +21,20 @@ export default function Places (props) {
   const setPlaceList = props.setPlaceList
   const placeList = props.placeList
   const search = props.search
+  const setRefresh = props.setRefresh
   const searchUrl = props.match.params.searchQuery
   const history = useHistory()
   const apiKey = process.env.REACT_APP_PLACES_KEY
 
   useEffect(
     () => {
-        axios.get(`https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${searchUrl}&radius=5000&key=${apiKey}`)
+      axios
+        .get(`http://localhost:8888/googleApi/list/${searchUrl}`)
         .then(res => {
+          window.sessionStorage.setItem('search', searchUrl)
           const a = []
+          console.log(search)
+          console.log(res.config.url)
           for (let [key, value] of Object.entries(res.data.results)) {
             a.push({
               place_id: value.place_id,
@@ -37,57 +50,62 @@ export default function Places (props) {
 
       // }
     },
-    [load, search, setPlaceList, empty]
+    [load, search, setPlaceList, empty,setRefresh]
   )
   console.log(search, placeList)
   return (
-    <React.Fragment>
+    <Box>
       {load
         ? <Spinner />
-        : <VStack spacing={6}>
+        : <React.Fragment>
           <Center>
             <Button
-              bg='teal.500'
+              bg='#4387f4'
               color='white'
               width='120px'
               margin='0 auto'
               marginRight='1em'
               marginLeft='1em'
+              _hover={{ color: 'black', bg: '#B285FA' }}
               onClick={() => history.goBack()}
               >
                 Back
               </Button>
             <Button
-              bg='teal.500'
+              bg='#4387f4'
               color='white'
               width='120px'
               margin='0 auto'
               marginRight='1em'
               marginLeft='1em'
+              _hover={{ color: 'black', bg: '#B285FA' }}
               onClick={() => history.push('/')}
               >
                 Home
               </Button>
           </Center>
-
-          {empty
-              ? <Error />
-              : placeList.map(place => {
-                return (
-                  <PlaceCard
-                    key={place.place_id}
-                    place_id={place.place_id}
-                    placeList={props.placeList}
-                    view={props.view}
-                    search={props.search}
-                    setSearch={props.setSearch}
-                    name={place.name}
-                    vicinity={place.vicinity}
-                    icon={place.icon}
-                    />
-                )
-              })}
-        </VStack>}
-    </React.Fragment>
+          <Center direction='row' flexWrap='wrap'>
+            {empty
+                ? <Error />
+                : placeList.map(place => {
+                  return (
+                    <Box width='auto' height='auto' margin='10px'>
+                      <PlaceCard
+                        key={place.place_id}
+                        place_id={place.place_id}
+                        placeList={props.placeList}
+                        view={props.view}
+                        search={search}
+                        setSearch={props.setSearch}
+                        name={place.name}
+                        vicinity={place.vicinity}
+                        icon={place.icon}
+                        />
+                    </Box>
+                  )
+                })}
+          </Center>
+        </React.Fragment>}
+    </Box>
   )
 }
