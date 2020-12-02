@@ -68,12 +68,11 @@ export default function UpdatePlace (props) {
           if (res.status === 200) {
             setEdit(res.data)
           }
-          // console.log(res.data)
         })
         .catch(res => {
-          // setEdit(initialEdit)
-          console.log("err")
-          axios.post(`http://localhost:8888/places`, {
+          const s = `${res}`
+          if (s.includes("Error")) {
+                      axios.post(`http://localhost:8888/places`, {
             // masks: null,
             // contact_tracing: null,
             // curbside: null,
@@ -81,6 +80,11 @@ export default function UpdatePlace (props) {
             // outdoor: null,
             place_id: placeId
           })
+          }
+          
+        else {
+          console.log("in")
+        }
         })
       setLoad(false)
     },
