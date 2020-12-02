@@ -17,16 +17,25 @@ import {
 import axios from 'axios'
 
 export default function UpdatePlace (props) {
+
+  const history = useHistory()
+  const setPlaceList = props.setPlaceList
+  const placeList = props.placeList
+  const placeId = props.match.params.id
+  const view = props.view
+  const apiKey = process.env.REACT_APP_PLACES_KEY
+  const searchUrl = window.sessionStorage.getItem('search')
   const initialEdit = {
     masks: null,
     contact_tracing: null,
     curbside: null,
     indoor: null,
     outdoor: null,
-    place_id: 0
+    place_id: placeId
   }
+  
   const [load, setLoad] = useState(true)
-  // const [empty, setEmpty] = useState(false)
+  const [checked, setChecked] = useState(false)
   const [edit, setEdit] = useState(initialEdit)
   const [clicked, setClicked] = useState({
     masks: 'false',
@@ -35,26 +44,16 @@ export default function UpdatePlace (props) {
     indoor: 'false',
     outdoor: 'false'
   })
-  const history = useHistory()
-  const setPlaceList = props.setPlaceList
-  const placeList = props.placeList
-  const placeId = props.match.params.id
-  const view = props.view
-  const apiKey = process.env.REACT_APP_PLACES_KEY
-  const searchUrl = window.sessionStorage.getItem("search")
+
+
+
 
   useEffect(
     () => {
       axios
         .get(`http://localhost:8888/googleApi/byId/${placeId}`)
         .then(res => {
-          if (res.status === 200) {
-            setPlaceList(res.data)
-            console.log("URL", searchUrl)
-          }
-          // console.log(res.data)
-          //   console.log(props)
-          //   setLoad(false)
+          setPlaceList(res.data)
         })
         .catch(res => {
           // setPlaceList([])
@@ -65,28 +64,29 @@ export default function UpdatePlace (props) {
       axios
         .get(`http://localhost:8888/places/${placeId}`)
         .then(res => {
-          if (res.status === 200) {
-            setEdit(res.data)
-          }
+          setChecked(true)
+          setEdit(res.data)
+          console.log('check check')
+          // }
         })
-        .catch(res => {
-          const s = `${res}`
-          if (s.includes("Error")) {
-                      axios.post(`http://localhost:8888/places`, {
-            // masks: null,
-            // contact_tracing: null,
-            // curbside: null,
-            // indoor: null,
-            // outdoor: null,
-            place_id: placeId
-          })
-          }
+        .finally(res => {
+            if (checked === false) {
+              axios
+                .post(`http://localhost:8888/places`, {
+                  // masks: null,
+                  // contact_tracing: null,
+                  // curbside: null,
+                  // indoor: null,
+                  // outdoor: null,
+                  place_id: placeId
+                })
+                .then(() => setChecked(true))
+            } else {
+              console.log('in')
+            }
           
-        else {
-          console.log("in")
-        }
+          setLoad(false)
         })
-      setLoad(false)
     },
     [load]
   )
@@ -151,7 +151,6 @@ export default function UpdatePlace (props) {
                 <Box>
                   <Text fontSize='lg'>
                     {placeList.name}
-                    
                   </Text>
                   <Divider h='10px' />
                   <Text fontSize='sm'>
@@ -265,7 +264,7 @@ export default function UpdatePlace (props) {
                       </Flex>
                     </RadioGroup>
                     <Button
-                    marginTop="1em"
+                      marginTop='1em'
                       type='submit'
                       bg='#5A0CDA'
                       color='white'

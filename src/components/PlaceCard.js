@@ -23,7 +23,8 @@ export default function PlaceCard (props) {
   const [singleView, setSingleView] = useState(false)
   const history = useHistory()
   const placeId = props.place_id
-  const search = props.search
+  // const search = props.search
+  const search = window.sessionStorage.getItem('search')
   const setSearch = props.setSearch
   const [info, setInfo] = useState([])
   useEffect(
@@ -74,7 +75,7 @@ export default function PlaceCard (props) {
           id={placeId}
           h='100%'
           direction='column-reverse'
-          boxSize="auto"
+          boxSize='auto'
             // width='auto'
           bg='#f7f7f7'
           border='1px solid gray'
@@ -87,9 +88,9 @@ export default function PlaceCard (props) {
           <Center>
             <Stack>
               <Button
-              bg='#0f9d58'
-              color="white"
-              _hover={{ color: 'black', bg: '#B285FA' }}
+                bg='#0f9d58'
+                color='white'
+                _hover={{ color: 'black', bg: '#B285FA' }}
                 onClick={() => history.push(`/update/${props.place_id}`)}
                 >
                   Update Info
@@ -101,7 +102,8 @@ export default function PlaceCard (props) {
                     marginBottom='10px'
                     _hover={{ color: 'black', bg: '#B285FA' }}
                     onClick={() =>
-                        history.push(`/search/${search[0]},${search[1]}`)}
+                        // history.push(`/search/${search[0]},${search[1]}`)}
+                        history.push(`/search/${search}`)}
                     >
                       Back
                     </Button>
@@ -125,7 +127,7 @@ export default function PlaceCard (props) {
             >
             <Box boxSize='auto' m='0 auto'>
               <Image
-                paddingLeft="10px"
+                paddingLeft='10px'
                 float='right'
                 fallbackSrc='https://via.placeholder.com/75'
                 src={props.icon}

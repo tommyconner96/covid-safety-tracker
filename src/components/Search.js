@@ -5,26 +5,26 @@ import { useHistory } from 'react-router-dom'
 import GoogleSearch from './GoogleSearch'
 
 export default function Search (props) {
-  const history = useHistory()
-  const setRefresh = props.setRefresh
+  // const history = useHistory()
+  // const setRefresh = props.setRefresh
 
-  const handleChange = e => {
-    e.preventDefault()
-    console.log(props.match)
-    console.log(props.search)
-    props.setSearch({
-      ...props.search,
-      [e.target.name]: e.target.value
-    })
-  }
+  // const handleChange = e => {
+  //   e.preventDefault()
+  //   console.log(props.match)
+  //   console.log(props.search)
+  //   props.setSearch({
+  //     ...props.search,
+  //     [e.target.name]: e.target.value
+  //   })
+  // }
 
-  const handleSubmit = e => {
-    // e.preventDefault()
-    console.log(props.search)
-    history.push(`/search/${props.search[0]},${props.search[1]}`)
-    // window.location.reload()
-    // props.setSearch({search:""})
-  }
+  // const handleSubmit = e => {
+  //   // e.preventDefault()
+  //   console.log(props.search)
+  //   history.push(`/search/${props.search[0]},${props.search[1]}`)
+  //   // window.location.reload()
+  //   // props.setSearch({search:""})
+  // }
   // FOR DEVELOPMENT ENTER City, STATE ABV.
   return (
     <React.Fragment>
@@ -61,7 +61,7 @@ export default function Search (props) {
           <GoogleSearch search={props.search} setSearch={props.setSearch} />
         </Box>
 
-        <Button
+        {/* <Button
           onClick={handleSubmit}
           bg='#4387f4'
           color='white'
@@ -70,7 +70,7 @@ export default function Search (props) {
           marginBottom='1em'
         >
           Find Places
-        </Button>
+        </Button> */}
       </Center>
     </React.Fragment>
   )
