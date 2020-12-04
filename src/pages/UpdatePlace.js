@@ -17,7 +17,6 @@ import {
 import axios from 'axios'
 
 export default function UpdatePlace (props) {
-
   const history = useHistory()
   const setPlaceList = props.setPlaceList
   const placeList = props.placeList
@@ -33,7 +32,7 @@ export default function UpdatePlace (props) {
     outdoor: null,
     place_id: placeId
   }
-  
+
   const [load, setLoad] = useState(true)
   const [checked, setChecked] = useState(false)
   const [edit, setEdit] = useState(initialEdit)
@@ -45,55 +44,78 @@ export default function UpdatePlace (props) {
     outdoor: 'false'
   })
 
+  //   useEffect(() => {
+  //     if (checked === false) {
+  //       axios
+  //         .post(`http://localhost:8888/places`, {
+  //           // masks: null,
+  //           // contact_tracing: null,
+  //           // curbside: null,
+  //           // indoor: null,
+  //           // outdoor: null,
+  //           place_id: placeId
+  //         })
+  //         .then(() => setChecked(true))
+  //     } else {
+  //       console.log('in')
+  //     }
+  // },[checked])
 
+  useEffect(() => {
+    axios
+      .get(`http://localhost:8888/googleApi/byId/${placeId}`)
+      .then(res => {
+        setPlaceList(res.data)
+      })
+      .catch(res => {
+        // setPlaceList([])
+        console.log(res)
+        // setEmpty(true)
+        //   setLoad(false)
+      })
+    axios
+      .get(`http://localhost:8888/places/${placeId}`)
+      .then(res => {
+        setChecked(true)
+        setEdit(res.data)
+        console.log('check check')
+        // }
+      })
+      .catch(() => console.log("not marked checked because it doesn't exist"))
+      .finally(res => {
+        // if (checked === false) {
+        //   axios
+        //     .post(`http://localhost:8888/places`, {
+        //       // masks: null,
+        //       // contact_tracing: null,
+        //       // curbside: null,
+        //       // indoor: null,
+        //       // outdoor: null,
+        //       place_id: placeId
+        //     })
+        //     .then(() => setChecked(true))
+        // } else {
+        //   console.log('in')
+        // }
 
-
-  useEffect(
-    () => {
-      axios
-        .get(`http://localhost:8888/googleApi/byId/${placeId}`)
-        .then(res => {
-          setPlaceList(res.data)
-        })
-        .catch(res => {
-          // setPlaceList([])
-          console.log(res)
-          // setEmpty(true)
-          //   setLoad(false)
-        })
-      axios
-        .get(`http://localhost:8888/places/${placeId}`)
-        .then(res => {
-          setChecked(true)
-          setEdit(res.data)
-          console.log('check check')
-          // }
-        })
-        .finally(res => {
-            if (checked === false) {
-              axios
-                .post(`http://localhost:8888/places`, {
-                  // masks: null,
-                  // contact_tracing: null,
-                  // curbside: null,
-                  // indoor: null,
-                  // outdoor: null,
-                  place_id: placeId
-                })
-                .then(() => setChecked(true))
-            } else {
-              console.log('in')
-            }
-          
-          setLoad(false)
-        })
-    },
-    [load]
-  )
+        setLoad(false)
+      })
+  }, [])
 
   const handleSubmit = e => {
     e.preventDefault()
-    console.log(edit)
+    if (checked === false) {
+      axios
+        .post(`http://localhost:8888/places`, {
+          // masks: null,
+          // contact_tracing: null,
+          // curbside: null,
+          // indoor: null,
+          // outdoor: null,
+          place_id: placeId
+        })
+        .then(() => setChecked(true))
+    }
     axios.put(`http://localhost:8888/places/${placeId}`, edit).then(res => {
       history.push(`../search/${searchUrl}`)
     })
