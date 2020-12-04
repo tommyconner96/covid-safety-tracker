@@ -11,7 +11,7 @@ import UpdatePlace from './pages/UpdatePlace'
 import Search from './components/Search'
 
 export default function App (props) {
-  const [search, setSearch] = useState([])
+  const [search, setSearch] = useState("")
   const [view, setView] = useState()
   const [placeList, setPlaceList] = useState([])
   const [refresh, setRefresh] = useState(false)
@@ -21,7 +21,7 @@ export default function App (props) {
       console.log(search, 'useEffect App.js')
       // setRefresh(false)
     },
-    [search, refresh]
+    [search]
   )
 
   return (

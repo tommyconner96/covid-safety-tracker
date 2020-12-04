@@ -13,14 +13,16 @@ import {
 import axios from 'axios'
 import PlaceCard from '../components/PlaceCard'
 import Error from '../components/Error'
-import Search from '../components/Search'
+import GoogleSearch from '../components/GoogleSearch'
 
 export default function Places (props) {
   const [empty, setEmpty] = useState(true)
   const [load, setLoad] = useState(true)
   const setPlaceList = props.setPlaceList
   const placeList = props.placeList
-  const search = props.search
+  const search = props.match.params.searchQuery
+  const setSearch = props.setSearch
+  const refresh = props.refresh
   const setRefresh = props.setRefresh
   const searchUrl = props.match.params.searchQuery
   const history = useHistory()
@@ -50,7 +52,7 @@ export default function Places (props) {
 
       // }
     },
-    [load, search, setPlaceList, empty,setRefresh]
+    [load, search, setPlaceList, empty]
   )
   console.log(search, placeList)
   return (
@@ -59,6 +61,7 @@ export default function Places (props) {
         ? <Spinner />
         : <React.Fragment>
           <Center>
+            <GoogleSearch setSearch={setSearch} setRefresh={setRefresh} setLoad={setLoad} search={searchUrl} />
             <Button
               bg='#4387f4'
               color='white'
