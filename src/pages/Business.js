@@ -20,7 +20,7 @@ export default function Places (props) {
   useEffect(
     () => {
       axios
-        .get(`${googleApi}googleApi/byId/${placeId}`)
+        .get(`http://localhost:8888/googleApi/byId/${placeId}`)
         .then(res => {
           // const a = []
           console.log(search)

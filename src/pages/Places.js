@@ -33,7 +33,7 @@ export default function Places (props) {
   useEffect(
     () => {
       axios
-        .get(`${googleApi}/googleApi/list/${searchUrl}`)
+        .get(`http://localhost:8888/googleApi/list/${searchUrl}`)
         .then(res => {
           window.sessionStorage.setItem('search', searchUrl)
           const a = []
