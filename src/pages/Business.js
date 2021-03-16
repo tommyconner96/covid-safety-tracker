@@ -5,6 +5,7 @@ import { Text, VStack, Box, Button, Spinner, Center } from '@chakra-ui/react'
 import axios from 'axios'
 import PlaceCard from '../components/PlaceCard'
 import Error from '../components/Error'
+import {googleApiUrl as googleApi} from '../App'
 
 export default function Places (props) {
   const [load, setLoad] = useState(true)
@@ -19,7 +20,7 @@ export default function Places (props) {
   useEffect(
     () => {
       axios
-        .get(`http://localhost:8888/googleApi/byId/${placeId}`)
+        .get(`${googleApi}googleApi/byId/${placeId}`)
         .then(res => {
           // const a = []
           console.log(search)

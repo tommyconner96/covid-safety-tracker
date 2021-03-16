@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import {googleApiUrl as googleApi} from '../App'
 import {
   Text,
   Flex,
@@ -27,6 +28,8 @@ export default function PlaceCard (props) {
   const search = window.sessionStorage.getItem('search')
   const setSearch = props.setSearch
   const [info, setInfo] = useState([])
+
+
   useEffect(
     () => {
       console.log('location', history.location)
@@ -41,7 +44,7 @@ export default function PlaceCard (props) {
       }
 
       axios
-        .get(`http://localhost:8888/places/${placeId}`)
+        .get(`${googleApi}places/${placeId}`)
         .then(res => {
           if (res.status === 200) {
             setInfo(res.data)

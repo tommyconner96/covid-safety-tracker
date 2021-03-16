@@ -1,5 +1,6 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
+import {googleApiUrl as googleApi} from '../App'
 import { useHistory } from 'react-router-dom'
 import {
   Text,
@@ -63,7 +64,7 @@ export default function UpdatePlace (props) {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:8888/googleApi/byId/${placeId}`)
+      .get(`${googleApi}/googleApi/byId/${placeId}`)
       .then(res => {
         setPlaceList(res.data)
       })
@@ -74,7 +75,7 @@ export default function UpdatePlace (props) {
         //   setLoad(false)
       })
     axios
-      .get(`http://localhost:8888/places/${placeId}`)
+      .get(`${googleApi}/places/${placeId}`)
       .then(res => {
         setChecked(true)
         setEdit(res.data)
@@ -106,7 +107,7 @@ export default function UpdatePlace (props) {
     e.preventDefault()
     if (checked === false) {
       axios
-        .post(`http://localhost:8888/places`, {
+        .post(`${googleApi}/places`, {
           // masks: null,
           // contact_tracing: null,
           // curbside: null,
@@ -116,7 +117,7 @@ export default function UpdatePlace (props) {
         })
         .then(() => setChecked(true))
     }
-    axios.put(`http://localhost:8888/places/${placeId}`, edit).then(res => {
+    axios.put(`${googleApi}/places/${placeId}`, edit).then(res => {
       history.push(`../search/${searchUrl}`)
     })
   }

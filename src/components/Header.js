@@ -38,13 +38,13 @@ export default function Header(props) {
         justifyContent={{md:"normal", sm:"center"}}
         flexGrow={1}
       >
-        <Link mt={{ base: 4, md: 0 }} mr={6}  href="/places">
-          Places
+        <Link mt={{ base: 4, md: 0 }} mr={6}  href="https://cors-anywhere.herokuapp.com/corsdemo">
+          Click Here For CORS Access (Before using!)
         </Link>
-        <Link mt={{ base: 4, md: 0 }} mr={6} href="/search">
+        {/* <Link mt={{ base: 4, md: 0 }} mr={6} href="/search">
           Search
-        </Link>
-        <Link
+        </Link> */}
+        {/* <Link
           mt={{ base: 4, md: 0 }}
           mr={6}
           href="/account/saved"
@@ -53,7 +53,7 @@ export default function Header(props) {
         </Link>
         <Link mt={{ base: 4, md: 0 }} mr={6}  href="/about">
           About
-        </Link>
+        </Link> */}
       </Box>
       {/* <Box
         display={{ sm: "block", md: "block" }}

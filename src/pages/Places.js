@@ -1,6 +1,7 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
+import {googleApiUrl as googleApi} from '../App'
 import {
   Text,
   VStack,
@@ -31,7 +32,7 @@ export default function Places (props) {
   useEffect(
     () => {
       axios
-        .get(`http://localhost:8888/googleApi/list/${searchUrl}`)
+        .get(`${googleApi}/googleApi/list/${searchUrl}`)
         .then(res => {
           window.sessionStorage.setItem('search', searchUrl)
           const a = []
