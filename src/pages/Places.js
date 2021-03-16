@@ -1,7 +1,6 @@
-import React from 'react'
 import { useState, useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
-import {googleApiUrl as googleApi} from '../App'
+// import {googleApiUrl as googleApi} from '../App'
 import {
   Text,
   VStack,
@@ -15,7 +14,7 @@ import axios from 'axios'
 import PlaceCard from '../components/PlaceCard'
 import Error from '../components/Error'
 import GoogleSearch from '../components/GoogleSearch'
-
+const googleApi = process.env.REACT_APP_GOOGLE_API
 export default function Places (props) {
   const [empty, setEmpty] = useState(true)
   const [load, setLoad] = useState(true)
