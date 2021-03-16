@@ -20,7 +20,7 @@ npm install
 
 ## Usage
 
-tbd
+You must have the [COVID SAFETY TRACKER API](https://github.com/tommyconner96/covid-safety-tracker-api) and the [COVID SAFETY TRACKER PLACE DATAS](https://github.com/tommyconner96/covid-safety-tracker-place-data) packages installed. README coming soon as well as web deployment. Stay Tuned!
 
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
