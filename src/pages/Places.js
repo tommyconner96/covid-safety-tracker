@@ -15,8 +15,9 @@ import axios from 'axios'
 import PlaceCard from '../components/PlaceCard'
 import Error from '../components/Error'
 import GoogleSearch from '../components/GoogleSearch'
-const googleApi = process.env.REACT_APP_GOOGLE_API
+
 export default function Places (props) {
+  const googleApi = process.env.REACT_APP_GOOGLE_API
   const [empty, setEmpty] = useState(true)
   const [load, setLoad] = useState(true)
   const setPlaceList = props.setPlaceList
